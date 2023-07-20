@@ -1,31 +1,39 @@
 import React from 'react';
 import './loginpage.css';
-import backgroundImage from '../assets/backimage.jpg';
+import backImage from '../assets/white_pencil.jpg';
 
-function LoginPage() {
+function App() {
   return (
-    <div className="main-container">
-      <img src={backgroundImage} alt="Background" className="background-img" />
-      <div className="login-text">Log in Form</div>
-      <div className="email-input-container">
-        <input type="email" placeholder="Email / Username" className="email-input" />
-      </div>
-      <div className="password-input-container">
-        <input type="password" placeholder="Enter your password" className="password-input" />
-      </div>
-      <div className="forgotpassword-text">Forgot password?</div>
-      <div className="rememberme-container">
-        <input type="checkbox" id="rememberme-checkbox" className="rememberme-checkbox" />
-        <label htmlFor="rememberme-checkbox" className="rememberme-label">Remember me</label>
-      </div>
-      <div className="Teacher-login-button-container">
-        <button className="Teacher-login-button">Continue as Teacher</button>
-      </div>
-      <div className="Student-login-button-container">
-        <button className="Student-login-button">Continue as Student</button>
+    <div className="container my-5">
+      <div className="row justify-content-center">
+        <div className='col-md-6'>
+          {/* <img src={backImage} alt="Background" className="img-fluid" /> */}
+        </div>
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h3 className="card-title text-center mb-4">Login</h3>S
+              <form>
+                <div className="form-group mb-3">
+                  <label htmlFor="email">Email / Username</label>
+                  <input type="email" id="email" className="form-control" placeholder="Enter your email or username" />
+                </div>
+                <div className="form-group mb-3">
+                  <label htmlFor="password">Password</label>
+                  <input type="password" id="password" className="form-control" placeholder="Enter your password" />
+                </div>
+                <div className="form-check mb-3">
+                  <input type="checkbox" id="rememberMe" className="form-check-input" />
+                  <label htmlFor="rememberMe" className="form-check-label">Remember me</label>
+                </div>
+                <button type="submit" className="btn btn-primary btn-block">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default App;
