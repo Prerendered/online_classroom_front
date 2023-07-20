@@ -8,8 +8,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <UploadMats />
+      {/* <UploadMats /> */}
       {/* <UploadVideos />  */}
+      <LoginPage/>
     </div>
   );
 }

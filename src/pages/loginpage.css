@@ -1,138 +1,39 @@
-.main-container {
-  position: relative;
-  height: 100vh;
-  zoom: 1;
+body {
+  background-color: #ffffff;
 }
 
-.background-img {
-  position: absolute;
-  top: 0%;
-  right: 75%;
-  width: 70%;
-  height: 100%;
+.container {
+  padding-top: 10%;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-text {
-  position: absolute;
-  top: 25%;
-  right: 38%;
-  font-size: 48px;
-  font-weight: bold;
-  color: rgb(0, 0, 0);
-}
-
-.email-input-container {
-  position: absolute;
-  top: 35%;
-  right: 30.2%;
-}
-
-.email-input {
-  width: 400px;
-  height: 25px;
-  padding: 10px;
-  font-size: 16px;
-  border: 3px solid #000000;
-  border-radius: 20px;
-  text-indent: 42px;
-  background-image: url('../assets/usericon.png'); 
-  background-repeat: no-repeat;
-  background-position: 15px center; 
-  padding-left: 10px; 
-  background-size: 5% auto;
-}
-.password-input-container {
-  position: absolute;
-  top: 45%;
-  right: 30.2%;
-}
-
-.password-input {
-  width: 400px;
-  height: 25px;
-  padding: 10px;
-  font-size: 16px;
-  border: 3px solid #000000;
-  border-radius: 20px;
-  text-indent: 42px;
-  background-image: url('../assets/lockicon.png'); 
-  background-repeat: no-repeat;
-  background-position: 15px center; 
-  padding-left: 10px; 
-  background-size: 5% auto;
-}
-
-.forgotpassword-text {
-  position: absolute;
-  top: 51%;
-  right: 31%;
-  font-size: 15px;
-  color: rgb(0, 0, 0);
-  text-decoration: underline;
-}
-
-.rememberme-container {
-  position: absolute;
-  top: 51%;
-  right: 45%;
-}
-
-.rememberme-checkbox {
-  top: 51%;
-  right: 45%;
-}
-
-.rememberme-label {
-  font-size: 16px;
-  top: 51%;
-  right: 45%;
-}
-
-.Teacher-login-button-container {
-  position: absolute;
-  top: 55%;
-  right: 31%;
-}
-
-.Teacher-login-button {
-  width: 400px;
-  height: 45px;
-  background-color: #000000;
-  color: #fff;
+.card {
   border: none;
-  padding: 10px 30px;
-  font-size: 24px;
-  border-radius: 20px;
-  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%;
 }
 
-.Teacher-login-button:hover {
-  background-color: #5CD8F3;
-  color: #000000;
-  font-size: 24px;
+.card-title {
+  color: #333;
 }
 
-.Student-login-button-container {
-  position: absolute;
-  top: 63%;
-  right: 31%;
-}
-
-.Student-login-button {
-  width: 400px;
-  height: 45px;
-  background-color: #000000;
-  color: #fff;
+.btn-primary {
+  background-color: #222831;
   border: none;
-  padding: 10px 30px;
-  font-size: 24px;
-  border-radius: 20px;
-  cursor: pointer;
 }
 
-.Student-login-button:hover {
-  background-color: #5CD8F3;
-  color: #000000;
-  font-size: 24px;
+.btn-primary:hover {
+  background-color: #00ADB5;
 }
-  
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 576px) {
+  .col-md-6 {
+    max-width: 100%;
+  }
+}
+
