@@ -1,24 +1,27 @@
-body {
-  background-color: #ffffff;
-}
-
 .container {
-  padding-top: 10%;
   align-items: center;
   justify-content: center;
 }
 
 .card {
+  background-color: #FFFFFF;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 100%;
+  padding: 2%;
+  margin-top: 25%;
 }
 
 .card-title {
+  text-align: center;
+  text-decoration: underline;
   color: #333;
+  font-size: 1.5rem;
+  font-weight: 1000;
 }
 
 .btn-primary {
+  width: 30%;
   background-color: #222831;
   border: none;
 }
@@ -27,9 +30,6 @@ body {
   background-color: #00ADB5;
 }
 
-.btn-block {
-  width: 100%;
-}
 
 @media (max-width: 576px) {
   .col-md-6 {
