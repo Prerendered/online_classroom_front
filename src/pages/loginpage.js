@@ -2,17 +2,18 @@ import React from 'react';
 import './loginpage.css';
 import backImage from '../assets/white_pencil.jpg';
 
-function App() {
+function LoginPage() {
   return (
     <div className="container my-5">
       <div className="row justify-content-center">
         <div className='col-md-6'>
+          Image placeholder
           {/* <img src={backImage} alt="Background" className="img-fluid" /> */}
         </div>
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h3 className="card-title text-center mb-4">Login</h3>S
+              <h3 className="card-title text-center mb-4">Login</h3>
               <form>
                 <div className="form-group mb-3">
                   <label htmlFor="email">Email / Username</label>
@@ -36,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default LoginPage;
