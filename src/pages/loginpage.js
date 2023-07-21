@@ -9,7 +9,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-function App() {
+function LoginPage() {
   return (
     <MDBContainer fluid>
       <MDBRow>
@@ -20,11 +20,11 @@ function App() {
 
             <h3 className="fw-bold mt-5 p-5" style={{letterSpacing: '1px'} }>Log in</h3>
 
-            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Email address' id='formControlDefault' type='email' size="lg"/>  
+            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Email address' id='typeEmail' type='email' size="lg"/>  
             
-            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
+            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Password' id='typePassword' type='password' size="lg"/>
 
-            <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg'>Login</MDBBtn>
+            <MDBBtn rounded className="butt-custom mb-4 px-5 mx-5 w-100"  color='dark' rippleColor='light' size='lg'>Login</MDBBtn>
             <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">Forgot password?</a></p>
 
           </div>
@@ -42,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default LoginPage;
