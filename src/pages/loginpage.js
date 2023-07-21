@@ -1,90 +1,45 @@
 import React from 'react';
-import './loginpage.css';
-import {Container, Col, Image, Card, Form, Button, Row} from 'react-bootstrap';
-import backgroundImage from '../assets/backimage.jpg';
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBInput
+}
+from 'mdb-react-ui-kit';
 
-function LoginPage() {
+function App() {
+  return (
+    <MDBContainer fluid>
+      <MDBRow>
 
-  const containerStyle = {
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    height: '100vh', // Set a height to cover the entire viewport (adjust as needed)
-  };
+        <MDBCol sm='6'>
 
-  return(
-    <Container fluid style={containerStyle}>
-      <Row> 
-        <Col > </Col>
-        <Col xs={6}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Enter your login details</Card.Title>
-              <Form>
-                <Form.Group className='mb-3' controlId='formBasicEmail'>
-                  <Form.Label >Email / Username</Form.Label>
-                  <Form.Control type="email" placeholder="Enter your Email or Username" />
-                </Form.Group>
-                <Form.Group className='mb-3' controlId='formBasicPassword'>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter your password" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Remember me" />
-                </Form.Group>
-                <div className='text-center'>
-                  <Button variant="primary" type="submit">Log in</Button>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col > </Col>
-      </Row>    
-    </Container>
-  )
+          <div className='d-flex flex-column justify-content-center h-custom-2 w-75 '>
+
+            <h3 className="fw-bold mt-5 p-5" style={{letterSpacing: '1px'} }>Log in</h3>
+
+            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Email address' id='formControlDefault' type='email' size="lg"/>  
+            
+            <MDBInput wrapperClass='mb-3 mx-5 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
+
+            <MDBBtn className="mb-4 px-5 mx-5 w-100" color='info' size='lg'>Login</MDBBtn>
+            <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">Forgot password?</a></p>
+
+          </div>
+
+        </MDBCol>
+
+        <MDBCol sm='6' className='d-none d-sm-block px-0'>
+          <img src="https://images.unsplash.com/photo-1658235081483-8f06aa0882cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+            alt="Login image" className="w-101" style={{objectFit: 'cover', objectPosition: 'left'}} />
+        </MDBCol>
+
+      </MDBRow>
+
+    </MDBContainer>
+  );
 }
 
-
-
-
-
-
-
-
-// function LoginPage() {
-//   return (
-//     <div className="container my-5">
-//       <div className="row justify-content-center">
-//         <div className='col-md-6'>
-          
-//         </div>
-//         <div className="col-md-6">
-//           <div className="card">
-//             <div className="card-body">
-//               <h3 className="card-title text-center mb-4">Login</h3>
-//               <form>
-//                 <div className="form-group mb-3">
-//                   <label htmlFor="email">Email / Username</label>
-//                   <input type="email" id="email" className="form-control" placeholder="Enter your email or username" />
-//                 </div>
-//                 <div className="form-group mb-3">
-//                   <label htmlFor="password">Password</label>
-//                   <input type="password" id="password" className="form-control" placeholder="Enter your password" />
-//                 </div>
-//                 <div className="form-check mb-3">
-//                   <input type="checkbox" id="rememberMe" className="form-check-input" />
-//                   <label htmlFor="rememberMe" className="form-check-label">Remember me</label>
-//                 </div>
-//                 <button type="submit" className="btn btn-primary btn-block">Login</button>
-//               </form>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-export default LoginPage;
+export default App;
