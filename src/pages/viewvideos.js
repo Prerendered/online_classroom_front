@@ -12,7 +12,7 @@ const viewVideos = () => {
   return (
     <div>
       <Navbar />
-      <Subtitle />
+      {/* <Subtitle /> */}
       <div className="app">
         <Video />
       </div>

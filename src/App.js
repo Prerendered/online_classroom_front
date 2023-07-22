@@ -9,8 +9,9 @@ function App() {
   return (
     <div className="App">
       {/* <UploadMats /> */}
-      {/* <UploadVideos />   */} {/* error in this shit */}
-      <LoginPage/>
+      <UploadVideos />   {/* error in this shit */}
+      {/* <ViewVideos/> */}
+      {/* <LoginPage/> */}
     </div>
   );
 }
