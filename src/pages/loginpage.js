@@ -1,90 +1,116 @@
-import React from 'react';
-import './loginpage.css';
-import {Container, Col, Image, Card, Form, Button, Row} from 'react-bootstrap';
-import backgroundImage from '../assets/backimage.jpg';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import SchoolIcon from '@mui/icons-material/School';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function LoginPage() {
+const defaultTheme = createTheme();
 
-  const containerStyle = {
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    height: '100vh', // Set a height to cover the entire viewport (adjust as needed)
+export default function SignInSide() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
 
-  return(
-    <Container fluid style={containerStyle}>
-      <Row> 
-        <Col > </Col>
-        <Col xs={6}>
-          <Card>
-            <Card.Body>
-              <Card.Title>Enter your login details</Card.Title>
-              <Form>
-                <Form.Group className='mb-3' controlId='formBasicEmail'>
-                  <Form.Label >Email / Username</Form.Label>
-                  <Form.Control type="email" placeholder="Enter your Email or Username" />
-                </Form.Group>
-                <Form.Group className='mb-3' controlId='formBasicPassword'>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Enter your password" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" label="Remember me" />
-                </Form.Group>
-                <div className='text-center'>
-                  <Button variant="primary" type="submit">Log in</Button>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col > </Col>
-      </Row>    
-    </Container>
-  )
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Grid container component="main" sx={{ height: '100vh'}}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1658235081483-8f06aa0882cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'black' }} >
+              <SchoolIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color='primary'/>}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, 
+                  mb: 2, 
+                  bgcolor: 'black', 
+                  color: 'white' ,
+                  '&:hover': {
+                    bgcolor: '#00ADB5', 
+                    color: 'black', 
+                  },
+                }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
 }
-
-
-
-
-
-
-
-
-// function LoginPage() {
-//   return (
-//     <div className="container my-5">
-//       <div className="row justify-content-center">
-//         <div className='col-md-6'>
-          
-//         </div>
-//         <div className="col-md-6">
-//           <div className="card">
-//             <div className="card-body">
-//               <h3 className="card-title text-center mb-4">Login</h3>
-//               <form>
-//                 <div className="form-group mb-3">
-//                   <label htmlFor="email">Email / Username</label>
-//                   <input type="email" id="email" className="form-control" placeholder="Enter your email or username" />
-//                 </div>
-//                 <div className="form-group mb-3">
-//                   <label htmlFor="password">Password</label>
-//                   <input type="password" id="password" className="form-control" placeholder="Enter your password" />
-//                 </div>
-//                 <div className="form-check mb-3">
-//                   <input type="checkbox" id="rememberMe" className="form-check-input" />
-//                   <label htmlFor="rememberMe" className="form-check-label">Remember me</label>
-//                 </div>
-//                 <button type="submit" className="btn btn-primary btn-block">Login</button>
-//               </form>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-export default LoginPage;
