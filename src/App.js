@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       {/* <UploadMats /> */}
-      <UploadVideos />   {/* error in this shit */}
+      <UploadVideos />   {/* error in this, removed everything for now*/}
       {/* <ViewVideos/> */}
       {/* <LoginPage/> */}
     </div>
