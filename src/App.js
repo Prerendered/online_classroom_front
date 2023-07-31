@@ -12,8 +12,8 @@ function App() {
     <div className="App">
       {/* <UploadMats /> */}
       {/* <UploadVideos />   */} {/* error in this shit */}
-      <LoginPage/>
-      {/* <TeacherPage/> */}
+      {/* <LoginPage/> */}
+      <TeacherPage/>
       {/* <StudentPage/> */}
     </div>
   );
