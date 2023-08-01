@@ -1,0 +1,38 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.Math
+{
+    color: #000;
+    font-family: Inter, serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 80px;
+    margin-left: 150px;
+}
+
+.Chapter1Sum
+{
+    font-size: 40px;
+    margin-top: 10px;
+    margin-left: 150px;
+    color: #000;
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.video-player {
+    width: 1169px;
+    height: 670px;
+    flex-shrink: 0;
+    margin-left: 150px;
+    margin-top: 40px;
+    margin-right: 100px;
+}
