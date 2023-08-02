@@ -21,6 +21,7 @@ function App() {
         <Route path='view-video' element={<ViewVideos/>}></Route>
         <Route path='upload-materials' element={<UploadMats />}></Route>
         <Route path='progress' element={<Progress/>}></Route>
+        <div>Try</div>
 
       </Routes>
     </div>
