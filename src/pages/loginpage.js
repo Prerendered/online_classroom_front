@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
+// front end
 export default function SignInSide() {
   const navigate = useNavigate();
 
@@ -35,8 +36,16 @@ export default function SignInSide() {
     });
 
       if (response.ok) {
-        navigate('/student-dashboard');
-      } else {
+        const userRole = await response.text();
+
+        if (userRole === "Student") {
+          navigate('/student-dashboard');
+        } else if (userRole === "Teacher") {
+          navigate('/teacher-dashboard');
+        } 
+      } 
+      else 
+      {
         navigate('/error');
       }
     } catch (error) {
