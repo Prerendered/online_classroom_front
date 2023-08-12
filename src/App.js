@@ -22,7 +22,7 @@ function App() {
         <Route path='view-video' element={<ViewVideos/>}></Route>
         <Route path='upload-materials' element={<UploadMats />}></Route>
         <Route path='progress' element={<Progress/>}></Route>
-        <Route path='error' element={<Errorpage/>}></Route>        
+        <Route path='error' element={<Errorpage/>}></Route> 
       </Routes>
     </div>
   );
