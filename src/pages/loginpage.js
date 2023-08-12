@@ -12,18 +12,38 @@ import Grid from '@mui/material/Grid';
 import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const payload = {
       email: data.get('email'),
       password: data.get('password'),
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/checkUser/${payload.email}&${payload.password}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
     });
+
+      if (response.ok) {
+        navigate('/student-dashboard');
+      } else {
+        navigate('/error');
+      }
+    } catch (error) {
+      // Handle network error
+    }
   };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
