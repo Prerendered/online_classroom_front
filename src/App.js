@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <UploadVideos />   */} {/* error in this shit */}
         <Route path='/' element={<LoginPage/>}></Route>
         <Route path='student-dashboard' element={<StudentDashboard/>}></Route>
         <Route path='teacher-dashboard' element={<TeacherDashboard/>}></Route>
