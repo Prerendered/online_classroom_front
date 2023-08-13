@@ -18,10 +18,13 @@ const defaultTheme = createTheme();
 
 // front end
 export default function SignInSide() {
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.currentTarget);
 
     const payload = {
@@ -35,24 +38,33 @@ export default function SignInSide() {
       headers: { 'Content-Type': 'application/json' },
     });
 
-      if (response.ok) {
-        const userRole = await response.text();
+    if (response.ok) {
+      const userRole = await response.text();
 
-        if (userRole === "Student") {
-          navigate('/student-dashboard');
-        } else if (userRole === "Teacher") {
-          navigate('/teacher-dashboard');
-        } 
+      if (userRole === "Student") {
+        navigate('/student-dashboard');
+      } else if (userRole === "Teacher") {
+        navigate('/teacher-dashboard');
       } 
-      else 
-      {
-        navigate('/error');
-      }
-    } catch (error) {
+    } 
+    else 
+    {
+      setOpen(true); // Show dialog on error
+      // navigate('/error');
+    }
+    } 
+    catch (error) 
+    {
       // Handle network error
+    } finally 
+    {
+      setLoading(false);
     }
   };
-
+  
+  const handleClose = () => { // Added this function to close the dialog
+    setOpen(false);
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -140,6 +152,22 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle>{"Error"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Incorrect email or password. Please try again.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ThemeProvider>
   );
 }
