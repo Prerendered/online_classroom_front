@@ -30,7 +30,7 @@ export default function SignInSide() {
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/users/checkUser/${payload.email}&${payload.password}`, {
+      const response = await fetch(`https://online-classroom-back.onrender.com/api/users/checkUser/${payload.email}&${payload.password}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
