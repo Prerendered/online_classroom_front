@@ -188,9 +188,9 @@ export default function SignInSide() {
         keepMounted
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Error"}</DialogTitle>
+        <DialogTitle sx={{ color: '#FF1E00' }} >{"Error"}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ color: 'black'}} >
             Incorrect email or password. Please try again.
           </DialogContentText>
         </DialogContent>
