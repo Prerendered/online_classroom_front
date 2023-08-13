@@ -11,6 +11,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
+import Dialog from '@mui/material/Dialog'; // Importing Dialog
+import DialogActions from '@mui/material/DialogActions'; // Importing DialogActions
+import DialogContent from '@mui/material/DialogContent'; // Importing DialogContent
+import DialogContentText from '@mui/material/DialogContentText'; // Importing DialogContentText
+import DialogTitle from '@mui/material/DialogTitle'; // Importing DialogTitle
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
@@ -61,7 +66,7 @@ export default function SignInSide() {
       setLoading(false);
     }
   };
-  
+
   const handleClose = () => { // Added this function to close the dialog
     setOpen(false);
   };
