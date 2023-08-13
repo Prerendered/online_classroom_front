@@ -27,7 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-// front end
+
 export default function SignInSide() {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -181,15 +181,17 @@ export default function SignInSide() {
 
       </Grid>
 
+{/* Pop up dialog */}
       <Dialog
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
         keepMounted
         aria-describedby="alert-dialog-slide-description"
+        sx={{ '& .MuiPaper-root': { backgroundColor: '#EEEEEE' } }}
       >
         <DialogTitle sx={{ color: '#FF1E00' }} >{"Error"}</DialogTitle>
-        <DialogContent>
+        <DialogContent >
           <DialogContentText sx={{ color: 'black'}} >
             Incorrect email or password. Please try again.
           </DialogContentText>
