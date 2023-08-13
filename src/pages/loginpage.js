@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react'; // Added this line to import useState
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,16 +13,19 @@ import Grid from '@mui/material/Grid';
 import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress'; // Importing CircularProgress for loading indicator
 import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 // front end
 export default function SignInSide() {
+  const [loading, setLoading] = useState(false); // Added this line to define loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.currentTarget);
 
     const payload = {
@@ -34,7 +38,6 @@ export default function SignInSide() {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
-
       if (response.ok) {
         const userRole = await response.text();
 
@@ -50,6 +53,8 @@ export default function SignInSide() {
       }
     } catch (error) {
       // Handle network error
+    } finally {
+      setLoading(false); // Set loading to false when response is received or an error occurs
     }
   };
 
@@ -117,17 +122,10 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, 
-                  mb: 2, 
-                  bgcolor: 'black', 
-                  color: 'white' ,
-                  '&:hover': {
-                    bgcolor: '#00ADB5', 
-                    color: 'black', 
-                  },
-                }}
+                sx={{ mt: 3, mb: 2, bgcolor: 'black', color: 'white', '&:hover': { bgcolor: '#00ADB5', color: 'black' } }}
+                disabled={loading} // Disable the button when loading
               >
-                Sign In
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'} {/* Conditionally render loading indicator */}
               </Button>
               <Grid container>
                 <Grid item xs>
