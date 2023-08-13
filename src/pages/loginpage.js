@@ -21,7 +21,6 @@ import Slide from '@mui/material/Slide';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress'; // Importing CircularProgress for loading indicator
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 const defaultTheme = createTheme();
 
