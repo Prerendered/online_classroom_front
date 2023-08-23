@@ -1,12 +1,14 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 
-const Subtitle = () => {
-  return (
-    <div className="subject-title">
-        <h1 className='unit'>Math</h1>
-        <h2 className='subchapter'>Chapter 1 : Linear Algebra</h2>
-    </div>
-  );
-};
+const Subtitle = () => (
+  <Typography variant="h3" component="h2" align="left" gutterBottom 
+  style={{
+    marginLeft: '16px', 
+    marginTop: '16px', 
+  }}>
+    Your Subtitle Here
+  </Typography>
+);
 
 export default Subtitle;

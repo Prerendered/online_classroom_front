@@ -13,7 +13,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Routes>
+      <ViewVideos/>
+      {/* <Routes>
         <Route path='/' element={<LoginPage/>}></Route>
         <Route path='student-dashboard' element={<StudentDashboard/>}></Route>
         <Route path='teacher-dashboard' element={<TeacherDashboard/>}></Route>
@@ -22,7 +23,7 @@ function App() {
         <Route path='upload-materials' element={<UploadMats />}></Route>
         <Route path='progress' element={<Progress/>}></Route>
         <Route path='error' element={<Errorpage/>}></Route> 
-      </Routes>
+      </Routes> */}
     </div>
   );
 }
