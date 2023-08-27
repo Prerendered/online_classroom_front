@@ -1,65 +1,57 @@
 import './student_dashboard.css';
 import Navbar from '../components/navbar.js';
+import SubjectsTable  from '../components/subjectTable.js';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import BasicDateCalendar from '../components/calendar.js';
 
 // function NavBar() {
-
-//     return (
-//         <nav className="navbar">
-//             <h2 class="logo">logo</h2>
-//             <ul className="nav-list">
-//                 <li className="nav-item"><h2><a href="/">Home</a></h2></li>
-//                 <li className="nav-item"><h2><a href="/">Online Forum</a></h2></li>
-//                 <li className="nav-item" id='Logout'> <h2><a href="/">Log Out</a></h2></li>
-//             </ul>
-//         </nav>
-//     );
+//   return (
+//     <nav className="navbar">
+//       <h2 class="logo">logo</h2>
+//       <ul className="nav-list">
+//         <li className="nav-item"><h2><a href="/">Home</a></h2></li>
+//         <li className="nav-item"><h2><a href="/">Students</a></h2></li>
+//         <li className="nav-item"><h2><a href="/">Online Forums</a></h2></li>
+//         <li className="nav-item" id='Logout'> <h2><a href="/">Log Out</a></h2></li>
+//       </ul>
+//     </nav>
+//   );
 // }
-const subjects = ['Math', 'History', 'English','French','Science','Geography'];
 
-function ListDiv(props) {
-    return (
-        <div className="list-div">
-            <h2 className='subName'>{props.subject}</h2>
-            <div className="link-buttons">
-                <a href="/" className="button">Status</a>
-                <a href="/" className="button">Watch Video</a>
-            </div>
-        </div>
-    );
-}
+
 
 function Welcome() {
-    return (
-        <div className='Welcome_div'>
-            <h1>Welcome to your dashboard!</h1>
-        </div>
-    );
-}
-/*Function to create a chat-bot log at the bottom right of the screen*/
-function Chatbot()
-{
-    return(
-
-        <div className="link-buttons">
-            <a href="/" className="chat-bot">Need Assistance?</a>
-        </div>
-
-    )
+  return (
+    <Grid container justify="flex-start" padding={3}>
+    <Typography variant="h2" component="h1">
+    Welcome to your dashboard!
+    </Typography>
+    </Grid>
+  );
 }
 
-function App() {
-    return (
-        <div className="App">
-            <Navbar />
-            <Welcome />
-            <div className="list-div-container">
-                {subjects.map((subject, index) => (
-                    <ListDiv key={index} subject={subject} />
-                ))}
-            </div>
-            <Chatbot/>
-        </div>
-    );
+function studentdashboard() {
+  return (
+    <div className="App">
+      <Navbar />
+      <Welcome />
+      
+      {/* <div className="list-div-container">
+      {subjects.map((subject, index) => (
+      <ListDiv key={index} subject={subject} />
+      ))}
+      </div> */}
+      <Grid container spacing={10}>
+        <Grid item xs={7}>
+          <SubjectsTable />
+        </Grid>
+        <Grid item xs={4.5}>
+          <BasicDateCalendar />
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
 
-export default App;
+export default studentdashboard;
