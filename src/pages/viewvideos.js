@@ -10,8 +10,8 @@ const viewVideos = () => {
   return (
     <div>
       <Navbar />
-      <Subtitle />
       <div className="app">
+        <Subtitle />
         <Video />
       </div>
     </div>

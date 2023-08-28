@@ -2,10 +2,10 @@ import React from 'react';
 import { Typography } from '@mui/material';
 
 const Subtitle = () => (
-  <Typography variant="h3" component="h2" align="left" gutterBottom 
+  <Typography variant="h2" component="h2" align="left"
   style={{
-    marginLeft: '16px', 
-    marginTop: '16px', 
+    marginLeft: '22%', 
+    marginTop: '1%', 
   }}>
     Your Subtitle Here
   </Typography>

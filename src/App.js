@@ -13,7 +13,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <ViewVideos/>
+      {/* <ViewVideos/> */}
+      <Progress/>
       {/* <Routes>
         <Route path='/' element={<LoginPage/>}></Route>
         <Route path='student-dashboard' element={<StudentDashboard/>}></Route>
