@@ -4,6 +4,7 @@ import SubjectsTable  from '../components/subjectTable.js';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import BasicDateCalendar from '../components/calendar.js';
+import QuoteOfTheDay from '../components/quote';
 
 // function NavBar() {
 //   return (
@@ -48,7 +49,9 @@ function studentdashboard() {
         </Grid>
         <Grid item xs={4.5}>
           <BasicDateCalendar />
+          <QuoteOfTheDay />
         </Grid>
+          
       </Grid>
     </div>
   );
