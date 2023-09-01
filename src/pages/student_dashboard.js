@@ -20,7 +20,7 @@ import QuoteOfTheDay from '../components/quote';
 //   );
 // }
 
-
+//Welcome message
 
 function Welcome() {
   return (

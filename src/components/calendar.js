@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Paper } from '@mui/material';
 
-
+//Calendar when messages will be implemented
 export default function BasicDateCalendar() {
 
   return (

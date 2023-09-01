@@ -18,7 +18,7 @@ const rows = [{id:1 , name:'Mathematics'},
 {id:6 , name:'French'},
 ];
 
-
+//table containing the subject that the students can get access to
 const SubjectsTable = () => {
     return (
         <TableContainer component={Paper} style={{

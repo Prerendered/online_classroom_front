@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+//Quote section where a quote of the day will be generated
 const QuoteOfTheDay = () => {
 
     return (
