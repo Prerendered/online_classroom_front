@@ -10,7 +10,7 @@ const QuoteOfTheDay = () => {
     const [quoteData, setQuote] = useState(null);
 
     const quoteAPI = () => {
-        axios.get(`https://api.api-ninjas.com/v1/quotes?category=${category}`, {
+        axios.get(`https://api.api-ninjas.com/v1/quotes?limit=1?category=${category}`, {
             headers: { 'X-Api-Key': 'O6mG+R9hg1Sh85AX7rieHw==rLrMmujHyDQm9hWA' }
         })
         .then((response) => {
