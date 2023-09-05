@@ -10,7 +10,8 @@ import Button from '@mui/material/Button';
 
 
 
-const rows = [{id:1 , name:'Mathematics'},
+const rows = [
+{id:1 , name:'Mathematics'},
 {id:2 , name:'English'},
 {id:3 , name:'History'},
 {id:4 , name:'Science'},
@@ -22,33 +23,37 @@ const rows = [{id:1 , name:'Mathematics'},
 const SubjectsTable = () => {
     return (
         <TableContainer component={Paper} style={{
+            alignItems: 'center',
             float: 'left',
-            margin: '10px',
+            padding: '5%',
+            margin: '0.2%',
             borderRadius: 10,
+            height: '93%',
           }}>
             <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell style={{
-        fontSize: '2rem',
-        fontWeight: 'bold',
-      }}>Your Courses</TableCell>
+                                fontSize: '2rem',
+                                fontWeight: 'bold',
+                            }}>Your Courses
+                        </TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow
-                        key={row.id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell style={{
-        fontSize: '1.5rem',
-        fontWeight: 'bold'
-      }} component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="right"><Button variant="outlined">Watch Videos</Button></TableCell>
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell style={{
+                                    fontSize: '1.5rem',
+                                    fontWeight: 'bold'
+                                }} component="th" scope="row">
+                                {row.name}
+                            </TableCell>
+                            <TableCell align="right"><Button variant="outlined">Watch Videos</Button></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

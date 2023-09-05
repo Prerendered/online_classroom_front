@@ -14,8 +14,6 @@ const QuoteOfTheDay = () => {
             headers: { 'X-Api-Key': 'O6mG+R9hg1Sh85AX7rieHw==rLrMmujHyDQm9hWA' }
         })
         .then((response) => {
-            // Assuming response.data contains the quote
-            console.log(response.data);
             setQuote(response.data[0]);
         })
         .catch((error) => {
@@ -33,7 +31,7 @@ const QuoteOfTheDay = () => {
         <Box marginY={5}>
             <Paper elevation={4}>
                 <Box padding={1}>
-                    <Typography variant="h4" component="h3" align='left' fontWeight="bold">
+                    <Typography variant="h5" component="h5" align='left' fontWeight="bold" fontStyle='italic' sx={{ textDecoration: 'underline' }}> 
                         Quote of the Day
                     </Typography>
                     {quoteData && (

@@ -24,10 +24,10 @@ import QuoteOfTheDay from '../components/quote';
 
 function Welcome() {
   return (
-    <Grid container justify="flex-start" padding={3}>
-    <Typography variant="h2" component="h1">
-    Welcome to your dashboard!
-    </Typography>
+    <Grid container justify="flex-start" padding={5}>
+      <Typography variant="h2" component="h1">
+      Welcome to your dashboard!
+      </Typography>
     </Grid>
   );
 }
@@ -43,11 +43,11 @@ function studentdashboard() {
       <ListDiv key={index} subject={subject} />
       ))}
       </div> */}
-      <Grid container spacing={10}>
+      <Grid container spacing={10} padding={5}>
         <Grid item xs={7}>
           <SubjectsTable />
         </Grid>
-        <Grid item xs={4.5}>
+        <Grid item xs={4}>
           <BasicDateCalendar />
           <QuoteOfTheDay />
         </Grid>
