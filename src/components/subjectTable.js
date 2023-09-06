@@ -53,7 +53,7 @@ const SubjectsTable = () => {
                                 }} component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell align="right"><Button variant="outlined">Watch Videos</Button></TableCell>
+                            <TableCell align="right"><Button variant="outlined">Choose Topics</Button></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
