@@ -10,10 +10,33 @@ import {
 
 const Video = () => {
   const [video, setVideo] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [givenAnswer, setGivenAnswer] = useState('');
 
   useEffect(() => {
     fetchVideo();
+    fetchQuestions();
+    fetchAnswers();
   }, []);
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get('/api/questions');
+      setQuestions(response.data);
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+    }
+  };
+
+  const fetchAnswers = async () => {
+    try {
+      const response = await axios.get('/api/answers');
+      setAnswers(response.data);
+    } catch (error) {
+      console.error('Error fetching answers:', error);
+    }
+  };
 
   const fetchVideo = async () => {
     try {
@@ -23,45 +46,30 @@ const Video = () => {
 
       setVideo(response.data.items[0]);
     } catch (error) {
-      console.error('Error fetching video:', error);
+      console.error('Error fetching video:', error); 
     }
   };
 
-  // State to store user's answers to math questions
-  const [answers, setAnswers] = useState({
-    q1: '',
-    q2: '',
-    q3: '',
-    q4: '',
-    q5: '',
-  });
-
-  // Function to handle user's answers
   const handleAnswerChange = (event) => {
-    const { name, value } = event.target;
-    setAnswers({ ...answers, [name]: value });
+    setGivenAnswer(event.target.value);
   };
 
-  // Function to handle the submit button click
   const handleSubmit = () => {
-    // You can now access the user's answers in the 'answers' state
-    console.log(answers);
+    // Get the index of the current question
+    const questionIndex = questions.findIndex(
+        (question) => question.question === questions[0].question
+    );
 
-    // Check if the user's answers are correct and display an alert
-    if (
-      answers.q1 === '2' &&
-      answers.q2 === '4' &&
-      answers.q3 === '6' &&
-      answers.q4 === '8' &&
-      answers.q5 === '10'
-    ) {
-      alert('You got all the answers right!');
-
+    if (questionIndex !== -1) {
+      const correctAnswer = answers[questionIndex].answer;
+      if (givenAnswer === correctAnswer) {
+        alert('Your answer is correct!');
+      } else {
+        alert('Your answer is incorrect. Please try again.');
+      }
     } else {
-      alert('One or more of your answers are incorrect. Please try again.');
+      alert('No questions found.');
     }
-
-
   };
 
   if (!video) {
@@ -71,63 +79,23 @@ const Video = () => {
   return (
       <Grid container spacing={2} justifyContent="flex-end" paddingTop={"10%"} paddingLeft={4}>
         {/* Video Player */}
-        <Grid item xs={12} md={8}>
-          <div className="video-container">
-            <div className="video-wrapper">
-              <iframe
-                  className="video-iframe"
-                  src={`https://www.youtube.com/embed/${video.id}`}
-                  title={video.snippet.title}
-                  frameBorder="0"
-                  allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </Grid>
+        {/* ... your video player code ... */}
 
         {/* Exercise Box */}
         <Grid item xs={12} md={4} paddingRight={2}>
-          <Paper elevation={3} style={{ padding: '20px', paddingLeft: '60px' , }}>
+          <Paper elevation={3} style={{ padding: '20px', paddingLeft: '60px' }}>
             <Typography variant="h6">Math Questions</Typography>
+            <Typography variant="body1" style={{ marginTop: '10px' }}>
+              {questions.length > 0 ? questions[0].question : 'No questions available'}
+            </Typography>
             <TextField
-                name="q1"
-                label="1 + 1 = ?"
-                fullWidth
-                margin="center"
+                name="answer"
+                label="Answer"
                 variant="outlined"
-                onChange={handleAnswerChange}
-            />
-            <TextField
-                name="q2"
-                label= "2 + 2 = ?"
-                fullWidth
                 margin="normal"
-                variant="outlined"
-                onChange={handleAnswerChange}
-            />
-            <TextField
-                name="q3"
-                label= "3 + 3 = ?"
                 fullWidth
-                margin="normal"
-                variant="outlined"
                 onChange={handleAnswerChange}
-            />
-            <TextField
-                name="q4"
-                label= "4 + 4 = ?"
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                onChange={handleAnswerChange}
-            />
-            <TextField
-                name="q5"
-                label= "5 + 5 = ?"
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                onChange={handleAnswerChange}
+                value={givenAnswer}
             />
             <Button
                 variant="contained"
