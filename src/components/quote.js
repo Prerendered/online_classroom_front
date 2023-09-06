@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
 const QuoteOfTheDay = () => {
-    const category = "inspirational";
+    const category = "education";
 
     const [quoteData, setQuote] = useState(null);
 
