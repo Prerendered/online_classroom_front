@@ -6,7 +6,7 @@ const Subtitle = () => {
   const { name } = useParams(); // Get the name from URL
 
   return (
-    <Typography variant="h2" component="h2" align="left" style={{ marginLeft: '22%', marginTop: '1%', }}>
+    <Typography variant="h3" component="h3" align="left" style={{ marginLeft: '22%', marginTop: '2%', marginBottom: '-2%'}}>
       {name}  {/* name taken from url*/}
     </Typography>
   );

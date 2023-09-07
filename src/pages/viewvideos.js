@@ -12,7 +12,7 @@ const viewVideos = () => {
     <div>
       <Navbar />
       <div className="app">
-        {/* <Subtitle /> */}
+        <Subtitle />
         <Video />
       </div>
     </div>
