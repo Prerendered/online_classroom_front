@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 // this needs to change according to subjects
 const rows = [
@@ -24,16 +25,20 @@ const rows = [
 //topics lead student to videos
 const viewTopic = () => {
 
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
 
+    //this redirects to the video page.
+    //need to change video according to topic
+    //seems like add an id to the browser page would fix, e.g, if topic is sum, browser is /view-video/sum
     const handleClickOpen = () => {
-        setOpen(true);
+        navigate('/view-video');
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
     return (
         <TableContainer component={Paper} style={{
