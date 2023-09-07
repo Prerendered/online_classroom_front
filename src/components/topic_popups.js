@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
+
 // this needs to change according to subjects
 const rows = [
 {id:1 , name:'Sum'},
@@ -32,13 +33,9 @@ const viewTopic = () => {
     //this redirects to the video page.
     //need to change video according to topic
     //seems like add an id to the browser page would fix, e.g, if topic is sum, browser is /view-video/sum
-    const handleClickOpen = () => {
-        navigate('/view-video');
+    const handleClickOpen = (name) => {
+        navigate(`/view-video/${name}`);
     };
-
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
 
     return (
         <TableContainer component={Paper} style={{
@@ -59,7 +56,7 @@ const viewTopic = () => {
                                 {row.name}
                             </TableCell>
                             <TableCell align="right">
-                                <Button variant="outlined" onClick={handleClickOpen}>View Video</Button>                           
+                                <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>View Video</Button>                           
                             </TableCell>
                         </TableRow>
                     ))}
