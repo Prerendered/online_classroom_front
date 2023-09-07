@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import '../App.css';
+import '../components/navbar.js';
+import '../components/navbar.css';
 import axios from 'axios';
 import {
   Grid,
@@ -37,7 +40,6 @@ const Video = () => {
       console.error('Error fetching answers:', error);
     }
   };
-
   const fetchVideo = async () => {
     try {
       const response = await axios.get(
@@ -55,7 +57,6 @@ const Video = () => {
   };
 
   const handleSubmit = () => {
-    // Get the index of the current question
     const questionIndex = questions.findIndex(
         (question) => question.question === questions[0].question
     );
@@ -79,7 +80,19 @@ const Video = () => {
   return (
       <Grid container spacing={2} justifyContent="flex-end" paddingTop={"10%"} paddingLeft={4}>
         {/* Video Player */}
-        {/* ... your video player code ... */}
+        <Grid item xs={12} md={8}>
+          <div className="video-container">
+            <div className="video-wrapper">
+              <iframe
+                  className="video-iframe"
+                  src={`https://www.youtube.com/embed/${video.id}`}
+                  title={video.snippet.title}
+                  frameBorder="0"
+                  allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </Grid>
 
         {/* Exercise Box */}
         <Grid item xs={12} md={4} paddingRight={2}>
