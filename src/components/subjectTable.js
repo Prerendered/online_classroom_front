@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,8 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import ViewTopic from './topic_popups';
 
 const rows = [
 {id:1 , name:'Mathematics'},
@@ -21,6 +27,19 @@ const rows = [
 
 //table containing the subject that the students can get access to
 const SubjectsTable = () => {
+
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <TableContainer component={Paper} style={{
             alignItems: 'center',
@@ -53,7 +72,37 @@ const SubjectsTable = () => {
                                 }} component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell align="right"><Button variant="outlined">Choose Topics</Button></TableCell>
+                            <TableCell align="right">
+
+                                <Button variant="outlined" onClick={handleClickOpen}>Choose Topics</Button>
+
+                                    <Dialog
+                                        maxWidth='md'
+                                        fullWidth={true}
+                                        fullScreen={fullScreen}
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="responsive-dialog-title"
+                                        BackdropProps={{
+                                            style: {
+                                                backgroundColor: 'rgba(0, 0, 0, 0.25)' // set the background opacity when dialog is up
+                                            }
+                                        }}
+                                    >
+                                        <DialogTitle id="responsive-dialog-title" style={{fontWeight:'bold', fontSize:'2rem'}}>
+                                            {"Topics:"}
+                                        </DialogTitle>
+                                        <DialogContent>
+                                            <ViewTopic />
+                                        </DialogContent>
+                                        <DialogActions>
+                                        <Button autoFocus onClick={handleClose}>
+                                            Close
+                                        </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                            
+                            </TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
