@@ -6,27 +6,13 @@ import Grid from '@mui/material/Grid';
 import BasicDateCalendar from '../components/calendar.js';
 import QuoteOfTheDay from '../components/quote';
 
-// function NavBar() {
-//   return (
-//     <nav className="navbar">
-//       <h2 class="logo">logo</h2>
-//       <ul className="nav-list">
-//         <li className="nav-item"><h2><a href="/">Home</a></h2></li>
-//         <li className="nav-item"><h2><a href="/">Students</a></h2></li>
-//         <li className="nav-item"><h2><a href="/">Online Forums</a></h2></li>
-//         <li className="nav-item" id='Logout'> <h2><a href="/">Log Out</a></h2></li>
-//       </ul>
-//     </nav>
-//   );
-// }
-
 //Welcome message
 
 function Welcome() {
   return (
     <Grid container justify="flex-start" padding={5}>
       <Typography variant="h2" component="h1">
-      Welcome to your dashboard!
+        Welcome to your dashboard!
       </Typography>
     </Grid>
   );
