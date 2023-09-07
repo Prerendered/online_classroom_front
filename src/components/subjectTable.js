@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -19,20 +18,23 @@ import ViewTopic from './topic_popups';
 const rows = [
 {id:1 , name:'Mathematics'},
 {id:2 , name:'English'},
-{id:3 , name:'History'},
+{id:3 , name:'French'},
 {id:4 , name:'Science'},
 {id:5 , name:'Geography'},
-{id:6 , name:'French'},
+{id:6 , name:'History'},
 ];
 
 //table containing the subject that the students can get access to
 const SubjectsTable = () => {
 
     const [open, setOpen] = React.useState(false);
+    const [subjectName, setSelectedSubject] = React.useState(null);
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-    const handleClickOpen = () => {
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md')); // for dialog
+    
+    //pass in row.name into this
+    const handleClickOpen = (subjectName) => {
+        setSelectedSubject(subjectName);
         setOpen(true);
     };
 
@@ -52,12 +54,14 @@ const SubjectsTable = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{
+                        <TableCell 
+                            style={{
                                 fontSize: '2rem',
                                 fontWeight: 'bold',
-                            }}>Your Courses
+                            }}>
+                                Your Courses
                         </TableCell>
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="right"></TableCell> 
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,7 +78,7 @@ const SubjectsTable = () => {
                             </TableCell>
                             <TableCell align="right">
 
-                                <Button variant="outlined" onClick={handleClickOpen}>Choose Topics</Button>
+                                <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>Choose Topics</Button>
 
                                     <Dialog
                                         maxWidth='md'
@@ -93,7 +97,7 @@ const SubjectsTable = () => {
                                             {"Topics:"}
                                         </DialogTitle>
                                         <DialogContent>
-                                            <ViewTopic />
+                                            <ViewTopic subjectName={subjectName} /> {/* send name of subject to view topic*/}
                                         </DialogContent>
                                         <DialogActions>
                                         <Button autoFocus onClick={handleClose}>

@@ -6,65 +6,78 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
-
-// this needs to change according to subjects
-const rows = [
-{id:1 , name:'Sum'},
-{id:2 , name:'Substraction'},
-{id:3 , name:'Multiplication'},
-{id:4 , name:'Division'},
-{id:5 , name:'Factors'},
-{id:6 , name:'Perimeter'},
-{id:7 , name:'Area'},
-{id:8 , name:'Ratio'},
+// change these to take data from db
+const rows_Maths = [
+  {id:1 , name:'Sum'},
+  {id:2 , name:'Substraction'},
+  {id:3 , name:'Multiplication'},
+  {id:4 , name:'Division'},
+  {id:5 , name:'Factors'},
+  {id:6 , name:'Perimeter'},
+  {id:7 , name:'Area'},
+  {id:8 , name:'Ratio'},
 ];
 
-//table containing the topics that the students can get access to
-//topics lead student to videos
-const viewTopic = () => {
+const rows_Eng = [
+  {id:1 , name:'Grammar'},
+  {id:2 , name:'Vocabulary'},
+  {id:3 , name:'Verbs'},
+  {id:4 , name:'Active Voice'},
+  {id:5 , name:'Passive Voice'},
+];
 
-    const navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
-    const theme = useTheme();
+const viewTopic = ({ subjectName }) => {
 
-    //this redirects to the video page.
-    //need to change video according to topic
-    //seems like add an id to the browser page would fix, e.g, if topic is sum, browser is /view-video/sum
-    const handleClickOpen = (name) => {
-        navigate(`/view-video/${name}`);
-    };
+  let rows;
 
-    return (
-        <TableContainer component={Paper} style={{
-            alignItems: 'center',
-            padding: '5%',
-            borderRadius: '10',
-          }}>
-            <Table>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                            <TableCell style={{
-                                    fontSize: '1rem',
-                                }} component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">
-                                <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>View Video</Button>                           
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-            </Table>
-        </TableContainer>
+  // Determine which set of topics to use based on the subjectName prop
+  switch(subjectName) {
+    case 'Mathematics':
+      rows = rows_Maths;
+      break;
+    case 'English':
+      rows = rows_Eng;
+      break;
+    default:
+      rows = [];  // Empty array or you could have a default set of topics
+  }
 
-    )
+  const navigate = useNavigate();
+
+  // this takes the name of the subject and passes it as the url.
+  const handleClickOpen = (name) => {
+    navigate(`/view-video/${name}`);
+  };
+
+  return (
+    <TableContainer component={Paper} style={{
+      alignItems: 'center',
+      padding: '5%',
+      borderRadius: 10,
+    }}>
+      <Table>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+              <TableCell style={{
+                fontSize: '1rem',
+              }} component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">
+                <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>View Video</Button>                           
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
 };
 
 export default viewTopic;
