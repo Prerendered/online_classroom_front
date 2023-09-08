@@ -9,12 +9,13 @@ import Progress from './pages/manage_progress.js';
 import StudentDashboard from './pages/student_dashboard.js';
 import TeacherDashboard from './pages/teacher_dashboard.js';
 import './App.css';
+import Viewvideos from "./pages/viewvideos.js";
 
 function App() {
   return (
     <div className="App">
       {/* <ViewVideos/> */}
-      <Progress/>
+      <Viewvideos/>
       {/* <Routes>
         <Route path='/' element={<LoginPage/>}></Route>
         <Route path='student-dashboard' element={<StudentDashboard/>}></Route>
