@@ -28,7 +28,7 @@ const rows_Eng = [
   {id:5 , name:'Passive Voice'},
 ];
 
-const viewTopic = ({ subjectName }) => {
+const ViewTopic = ({ subjectName }) => {
 
   let rows;
 
@@ -80,4 +80,4 @@ const viewTopic = ({ subjectName }) => {
   )
 };
 
-export default viewTopic;
+export default ViewTopic;
