@@ -6,6 +6,7 @@ import Navbar from '../components/navbar.js';
 import Video from './videoplayer.js';
 import Subtitle from './subject-title.js';
 
+
 const viewVideos = () => {
   return (
     <div>

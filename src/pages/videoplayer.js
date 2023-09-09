@@ -26,7 +26,7 @@ const Video = () => {
 
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get('/api/questions');
+            const response = await axios.get('/api/questions' );
             setQuestions(response.data);
         } catch (error) {
             console.error('Error fetching questions:', error);
@@ -85,7 +85,6 @@ const Video = () => {
                 <Card
                     style={{
                         width: '85%', // Adjust this for desired width
-
                     }}
                 >
                     <div
@@ -111,24 +110,53 @@ const Video = () => {
             <Grid item xs={12} md={4} paddingRight={1}>
                 <Paper elevation={3} style={{ padding: '10%', paddingLeft: '10%' }}>
                     <Typography variant="h6">Math Questions</Typography>
-                    <Typography variant="body1" style={{ marginTop: '10px' }}>
+                    <Typography variant="body1" style={{ marginTop: '2%' }}>
                         {questions.length > 0 ? questions[0].question : 'No questions available'}
                     </Typography>
                     <TextField
-                        name="answer"
-                        label="Answer"
+                        name="question one"
+                        label= {questions[0]}
                         variant="outlined"
                         margin="normal"
                         fullWidth
                         onChange={handleAnswerChange}
                         value={givenAnswer}
-                    />  name="answer"
-                    label="Answer"
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    onChange={handleAnswerChange}
-                    value={givenAnswer}
+                    />
+                    <TextField
+                        name = "question two"
+                        label= {questions[1]}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        onChange={handleAnswerChange}
+                        value={givenAnswer}
+                    />
+                    <TextField
+                        name = "question three"
+                        label= {questions[1]}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        onChange={handleAnswerChange}
+                        value={givenAnswer}
+                    />
+                    <TextField
+                        name = "question four"
+                        label= {questions[1]}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        onChange={handleAnswerChange}
+                        value={givenAnswer}
+                    />
+                    <TextField
+                        name = "question five"
+                        label= {questions[1]}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        onChange={handleAnswerChange}
+                        value={givenAnswer}
                     />
 
                     <Button
