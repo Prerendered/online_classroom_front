@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams to get name from url
-import { Card, CircularProgress } from '@mui/material';
+import { Grid, Paper, TextField, Button, Typography, Card, CircularProgress } from '@mui/material';
 
 // Mapping of subjects to YouTube video IDs; Static for now
 // Change to get more videos, change to fetch ids from db instead
@@ -19,6 +19,7 @@ const subjectToVideoId = {
 
 const Video = () => {
   const [video, setVideo] = useState(null);
+
 
   const { name } = useParams(); // Getting the 'name' from the URL
 
@@ -56,6 +57,8 @@ const Video = () => {
   }
 
   return (
+
+    // video player: positioning
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
       <Card
         style={{
@@ -79,6 +82,71 @@ const Video = () => {
           ></iframe>
         </div>
       </Card>
+      
+      {/* Exercise Box */}
+      <Grid item xs={12} md={4} paddingLeft={2} width={'35%'}>
+        <Paper elevation={4} style={{ padding: '5%', }}>
+            <Typography variant="h6" justifyContent={'left'}>Questions</Typography>
+            {/* <Typography variant="body1" style={{ marginTop: '2%' }}>
+                {questions.length > 0 ? questions[0].question : 'No questions available'}
+            </Typography> */}
+            <TextField
+                name="question one"
+                // label= {questions[0]}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                // onChange={handleAnswerChange}
+                // value={givenAnswer}
+            />
+            <TextField
+                name = "question two"
+                // label= {questions[1]}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                // onChange={handleAnswerChange}
+                // value={givenAnswer}
+            />
+            <TextField
+                name = "question three"
+                // label= {questions[1]}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                // onChange={handleAnswerChange}
+                // value={givenAnswer}
+            />
+            <TextField
+                name = "question four"
+                // label= {questions[1]}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                // onChange={handleAnswerChange}
+                // value={givenAnswer}
+            />
+            <TextField
+                name = "question five"
+                // label= {questions[1]}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                // onChange={handleAnswerChange}
+                // value={givenAnswer}
+            />
+
+            <Button
+                variant="contained"
+                color="primary"
+                // onClick={handleSubmit}
+                style={{ marginTop: '16px' }}
+            >
+                Submit
+            </Button>
+        </Paper>
+      </Grid> 
+
     </div>
   );
 };

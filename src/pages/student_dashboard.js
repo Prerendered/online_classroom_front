@@ -1,10 +1,10 @@
 import './student_dashboard.css';
 import Navbar from '../components/navbar.js';
 import SubjectsTable  from '../components/subjectTable.js';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import BasicDateCalendar from '../components/calendar.js';
 import QuoteOfTheDay from '../components/quote';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 //Welcome message
 
