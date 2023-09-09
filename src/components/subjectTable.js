@@ -1,3 +1,13 @@
+// This is the main file to render the subjects data grid/table
+// The file connects to the spring boot endpoints using fetch. The spring boot app is concerned with connecting to the mongoDB database and fetching correct data.
+// Data obtained from db is in .json format.
+// The .json items are dealt with and added into rows.
+
+// Param
+// rows => []
+// id => id of subject (int) == row.id
+// name => name of subject (str) == row.name
+
 import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
