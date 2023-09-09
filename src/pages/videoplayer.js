@@ -1,3 +1,14 @@
+// This file renders the video player onto the page. 
+// Next to video player, exercises/questions are also rendered.
+// if there is no videos, a loading circle is seen on screen.
+// video is marked as completed, when user succesfully answers all questions.
+
+// Param:
+// name -> gets the name of the subject from the url (str)
+// video -> video provided from youtube (str)
+// videoId -> id of specific video; this is fetched using the name of the video (str)
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams to get name from url
@@ -19,8 +30,6 @@ const subjectToVideoId = {
 
 const Video = () => {
   const [video, setVideo] = useState(null);
-
-
   const { name } = useParams(); // Getting the 'name' from the URL
 
   useEffect(() => {
@@ -47,7 +56,6 @@ const Video = () => {
   };
 
   // no video = infinite loading
-  // change to round loading sphere
   if (!video) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
