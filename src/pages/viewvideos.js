@@ -1,3 +1,6 @@
+// This just calls the videoplayer.js file
+// Does most of the rendering, but videoplayer.js and subject-title.js are the ones to check
+
 import React from 'react';
 import '../App.css';
 import '../components/navbar.js';
