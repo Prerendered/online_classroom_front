@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 //Welcome message
-
 function Welcome() {
   return (
     <Grid container justify="flex-start" padding={5}>
