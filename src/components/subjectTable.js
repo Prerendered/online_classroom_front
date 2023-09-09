@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,18 +15,34 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import ViewTopic from './topic_popups';
 
-const rows = [
-{id:1 , name:'Mathematics'},
-{id:2 , name:'English'},
-{id:3 , name:'French'},
-{id:4 , name:'Science'},
-{id:5 , name:'Geography'},
-{id:6 , name:'History'},
-];
 
 //table containing the subject that the students can get access to
 const SubjectsTable = () => {
 
+    // Data fetched from database
+    const [rows, setRows] = useState([]); // Initialize rows as an empty array
+
+    useEffect(() => {
+        // Fetch data from database
+        async function fetchData() {
+        try {
+            const response = await fetch('http://localhost:8080/api/v2/subjects/getAll');
+            const result = await response.json();
+
+            const transformedRows = result.map((entry) => ({
+            id: parseInt(entry._subjectID, 10),
+            name: entry.subjectName
+            }));
+
+            setRows(transformedRows); // Populate rows with fetched data
+        } catch (error) {
+            console.error("There was a problem fetching data", error);
+        }
+        }
+        fetchData();
+    }, []);
+
+    
     const [open, setOpen] = React.useState(false);
     const [subjectName, setSelectedSubject] = React.useState(null);
     const theme = useTheme();
