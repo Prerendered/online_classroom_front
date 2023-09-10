@@ -7,40 +7,54 @@
 // name -> gets the name of the subject from the url (str)
 // video -> video provided from youtube (str)
 // videoId -> id of specific video; this is fetched using the name of the video (str)
-
+// matchingRow -> row that matches the name of the video (str)
+// allRows -> array of all the rows in the database (array)
+// transformedRows -> array of all the rows in the database, but with the data transformed (array)
+// TopicName -> name of the topic (str)
+// subjectname -> name of the subject (str)
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams to get name from url
 import { Grid, Paper, TextField, Button, Typography, Card, CircularProgress } from '@mui/material';
 
-// Mapping of subjects to YouTube video IDs; Static for now
-// Change to get more videos, change to fetch ids from db instead
-const subjectToVideoId = {
-  'Sum': 'XJkIaw2e1Pw',
-  'Division': 'yAJxHO7CLh4',
-  'Substraction':'ug0gs8kLE48',
-  'Multiplication': '6owKqFWej-w',
-  'Division': 'KGMf314LUc0',
-  'Factors': '0NvLtTwnUHs',
-  'Perimeter': 'MTSlKifo4js', 
-  'Area': 'JnLDmw3bbuw',
-  'Ratio': 'bijxRsGF7fw',
-};
-
 const Video = () => {
   const [video, setVideo] = useState(null);
+  const [allRows, setAllRows] = useState([]);
   const { name } = useParams(); // Getting the 'name' from the URL
 
+   // Fetch data from database
   useEffect(() => {
-    const videoId = subjectToVideoId[name]; // Look up video ID based on subject name
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v2/topics/getAll');
+        const result = await response.json();
 
-    if (videoId) {
-      fetchVideo(videoId); // Fetch the corresponding video
-    } else {
-      console.error('No video ID found for subject:', name);
+        const transformedRows = result.map((entry) => ({
+          id: parseInt(entry._subjectID, 10),
+          TopicName: entry.topicName,
+          subjectname: entry.subjectName,
+          videoID: entry.videoID,
+        }));
+        setAllRows(transformedRows); // Populate rows with fetched data, all data
+      } catch (error) {
+        return (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+            <CircularProgress />
+          </div>
+        );
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const matchingRow = allRows.find(row => row.TopicName === name);
+    if (matchingRow) {
+      console.log(matchingRow.videoID);
+      fetchVideo(matchingRow.videoID);
     }
-  }, [name]); // Re-run the effect if 'name' changes
+  }, [allRows,name]); // Re-run the effect if 'name' and array allRows change
 
   // get video from youtube api
   const fetchVideo = async (videoId) => {
