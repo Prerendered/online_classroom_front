@@ -64,8 +64,6 @@ const ViewTopic = ({ subjectName }) => {
     completedRows = rows.filter(item => item.completion === "True");
   }
   
-  console.log(completedRows);
-
   const navigate = useNavigate();
 
   // take the name of the subject and passes it as the url. used to view videos in next page
@@ -92,10 +90,13 @@ const ViewTopic = ({ subjectName }) => {
                 {row.name}
               </TableCell>
               <TableCell align="right">
-                <Button 
+              <Button 
                 variant="outlined" 
-                disabled={completedRows.some(completedRow => completedRow.name === row.name)} // this will disable the button if the topic is completed/viewed
-                onClick={() => handleClickOpen(row.name) }>View Video</Button>                                           
+                disabled={completedRows.some(completedRow => completedRow.name === row.name) && row.completion === "True"} // this will disable the button if the topic is completed/viewed
+                onClick={() => handleClickOpen(row.name)}
+              >
+                View Video
+              </Button>                                          
               </TableCell>
             </TableRow>
           ))}

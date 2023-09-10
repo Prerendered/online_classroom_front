@@ -156,10 +156,11 @@ const Video = () => {
       
       {/* CheckBox, replace with exercise from Emmanuel*/}
       
+    {/* CheckBox */}
+    {/* CheckBox */}
     <FormGroup>
       <FormControlLabel control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />} label="Viewed" />
     </FormGroup>
-
       
       {/* Exercise Box
       <Grid item xs={12} md={4} paddingLeft={2} width={'35%'}>
