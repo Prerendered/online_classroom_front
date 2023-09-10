@@ -11,6 +11,8 @@
 // id => id of subject (int) == row.id
 // name => name of topic (str) == entry.topicName
 // subjectname => name of subject (str) == entry.subjectName 
+// completion => completion status of topic (str) == entry.topicCompletion
+// completedRows => [] => array of data after filtering if topic is completed => if topic is in this array, the view video button is disabled for that topic
 
 import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
@@ -38,7 +40,8 @@ const ViewTopic = ({ subjectName }) => {
         const transformedRows = result.map((entry) => ({
           id: parseInt(entry._subjectID, 10),
           name: entry.topicName,
-          subjectname: entry.subjectName 
+          subjectname: entry.subjectName,
+          completion : entry.topicCompletion
         }));
         setAllRows(transformedRows); // Populate rows with fetched data, all data
       } catch (error) {
@@ -53,12 +56,16 @@ const ViewTopic = ({ subjectName }) => {
   }, []);
 
   let rows; //initialize row used to filter data
+  let completedRows; //initialize row used to filter data if topic is completed
 
   // Display topic name based on subject name into the table
   if (subjectName) {
     rows = allRows.filter(item => item.subjectname === subjectName);
+    completedRows = rows.filter(item => item.completion === "True");
   }
   
+  console.log(completedRows);
+
   const navigate = useNavigate();
 
   // take the name of the subject and passes it as the url. used to view videos in next page
@@ -85,7 +92,10 @@ const ViewTopic = ({ subjectName }) => {
                 {row.name}
               </TableCell>
               <TableCell align="right">
-                <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>View Video</Button>                           
+                <Button 
+                variant="outlined" 
+                disabled={completedRows.some(completedRow => completedRow.name === row.name)} // this will disable the button if the topic is completed/viewed
+                onClick={() => handleClickOpen(row.name) }>View Video</Button>                                           
               </TableCell>
             </TableRow>
           ))}
