@@ -1,4 +1,18 @@
-import * as React from 'react';
+// This file adds the topics into a table to be then rendered in the subjectTable.js file.
+// Data is fetched from the database and then added into an array to hold all the data at first.
+// The data is then filtered to only show the topics that are related to the subject that the user clicked on.
+// the subject name from topic table is the same as the subject name from subject table because the subject name is passed in as a prop from subject table
+// the subject name is also stored as an entry in the topic collection in the database
+
+// Param
+// subjectName => name of subject (str) == subjectName
+// allRows => [] => array of data from database, i.e, all data
+// rows => [] => array of data after filtering
+// id => id of subject (int) == row.id
+// name => name of topic (str) == entry.topicName
+// subjectname => name of subject (str) == entry.subjectName 
+
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,47 +20,48 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
-// change these to take data from db
-const rows_Maths = [
-  {id:1 , name:'Sum'},
-  {id:2 , name:'Substraction'},
-  {id:3 , name:'Multiplication'},
-  {id:4 , name:'Division'},
-  {id:5 , name:'Factors'},
-  {id:6 , name:'Perimeter'},
-  {id:7 , name:'Area'},
-  {id:8 , name:'Ratio'},
-];
-
-const rows_Eng = [
-  {id:1 , name:'Grammar'},
-  {id:2 , name:'Vocabulary'},
-  {id:3 , name:'Verbs'},
-  {id:4 , name:'Active Voice'},
-  {id:5 , name:'Passive Voice'},
-];
 
 const ViewTopic = ({ subjectName }) => {
 
-  let rows;
+  // Initialize rows as an empty array
+  const [allRows, setAllRows] = useState([]); 
 
-  // Determine which set of topics to use based on the subjectName prop
-  switch(subjectName) {
-    case 'Mathematics':
-      rows = rows_Maths;
-      break;
-    case 'English':
-      rows = rows_Eng;
-      break;
-    default:
-      rows = [];  // Empty array or you could have a default set of topics
+   // Fetch data from database
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/v2/topics/getAll');
+        const result = await response.json();
+
+        const transformedRows = result.map((entry) => ({
+          id: parseInt(entry._subjectID, 10),
+          name: entry.topicName,
+          subjectname: entry.subjectName 
+        }));
+        setAllRows(transformedRows); // Populate rows with fetched data, all data
+      } catch (error) {
+        return (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+            <CircularProgress />
+          </div>
+        );
+      }
+    };
+    fetchData();
+  }, []);
+
+  let rows; //initialize row used to filter data
+
+  // Display topic name based on subject name into the table
+  if (subjectName) {
+    rows = allRows.filter(item => item.subjectname === subjectName);
   }
-
+  
   const navigate = useNavigate();
 
-  // this takes the name of the subject and passes it as the url.
+  // take the name of the subject and passes it as the url. used to view videos in next page
   const handleClickOpen = (name) => {
     navigate(`/view-video/${name}`);
   };

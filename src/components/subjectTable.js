@@ -52,7 +52,6 @@ const SubjectsTable = () => {
         fetchData();
     }, []);
 
-    
     const [open, setOpen] = React.useState(false);
     const [subjectName, setSelectedSubject] = React.useState(null);
     const theme = useTheme();
@@ -103,40 +102,38 @@ const SubjectsTable = () => {
                                 {row.name}
                             </TableCell>
                             <TableCell align="right">
-
                                 <Button variant="outlined" onClick={() => handleClickOpen(row.name)}>Choose Topics</Button>
-
-                                    <Dialog
-                                        maxWidth='md'
-                                        fullWidth={true}
-                                        fullScreen={fullScreen}
-                                        open={open}
-                                        onClose={handleClose}
-                                        aria-labelledby="responsive-dialog-title"
-                                        BackdropProps={{
-                                            style: {
-                                                backgroundColor: 'rgba(0, 0, 0, 0.25)' // set the background opacity when dialog is up
-                                            }
-                                        }}
-                                    >
-                                        <DialogTitle id="responsive-dialog-title" style={{fontWeight:'bold', fontSize:'2rem'}}>
-                                            {"Topics:"}
-                                        </DialogTitle>
-                                        <DialogContent>
-                                            <ViewTopic subjectName={subjectName} /> {/* send name of subject to view topic*/}
-                                        </DialogContent>
-                                        <DialogActions>
-                                        <Button autoFocus onClick={handleClose}>
-                                            Close
-                                        </Button>
-                                        </DialogActions>
-                                    </Dialog>
-                            
                             </TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
             </Table>
+
+            <Dialog
+                maxWidth='md'
+                fullWidth={true}
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+                BackdropProps={{
+                    style: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.25)' // set the background opacity when dialog is up
+                    }
+                }}
+            >
+                <DialogTitle id="responsive-dialog-title" style={{fontWeight:'bold', fontSize:'2rem'}}>
+                    {"Topics:"}
+                </DialogTitle>
+                <DialogContent>
+                    <ViewTopic subjectName={subjectName} /> {/* send name of subject to view topic*/}
+                </DialogContent>
+                <DialogActions>
+                <Button autoFocus onClick={handleClose}>
+                    Close
+                </Button>
+                </DialogActions>
+            </Dialog>
         </TableContainer>
 
     )
