@@ -9,6 +9,7 @@
 // name => name of subject (str) == row.name
 
 import React, { useState, useEffect } from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,6 +24,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+
 import ViewTopic from './topic_popups';
 
 
