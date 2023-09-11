@@ -6,7 +6,7 @@ import { ThemeProvider as StyledThemeProvider } from '@mui/material/styles';
 import LinearWithValueLabel from './progress_bar';
 
 const theme = createTheme({
-    // You can define your custom theme here if needed
+    //define custom theme here if needed
 });
 
 const SubjectDisplay = () => {
