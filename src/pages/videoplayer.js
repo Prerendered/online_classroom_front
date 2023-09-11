@@ -25,22 +25,37 @@ const Video = () => {
     }, []);
 
     const fetchQuestions = async () => {
-        try {
-            const response = await axios.get('/api/questions' );
-            setQuestions(response.data);
-        } catch (error) {
-            console.error('Error fetching questions:', error);
-        }
+
+    const response = await fetch('http://localhost:3000/api/exercises/getQuestion', {method: 'GET',
+        headers: { 'Content-Type': 'application/json' }},);
+
+    if (response.ok) {
+        const data = await response.json();
+        setQuestions(data);
+
+        {/*Prints out the questions in the console*/}
+        console.log(data);
+    }
+    else {
+        console.log("Error fetching questions");
+    }
+
     };
 
     const fetchAnswers = async () => {
-        try {
-            const response = await axios.get('/api/answers');
-            setAnswers(response.data);
-        } catch (error) {
-            console.error('Error fetching answers:', error);
-        }
-    };
+
+            const response = await fetch('http://localhost:3000/api/exercises/getAnswer', {method: 'GET',
+                headers: { 'Content-Type': 'application/json' }},);
+
+            if (response.ok) {
+                const data = await response.json();
+                setAnswers(data);
+            }
+            else {
+                console.log("Error fetching answers");
+            }
+
+    }
     const fetchVideo = async () => {
         try {
             const response = await axios.get(
