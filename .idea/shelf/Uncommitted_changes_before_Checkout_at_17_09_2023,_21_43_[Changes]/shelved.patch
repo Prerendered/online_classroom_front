@@ -1,0 +1,24 @@
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n  \"name\": \"online_classroom\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"dependencies\": {\n    \"@emotion/react\": \"^11.11.1\",\n    \"@emotion/styled\": \"^11.11.0\",\n    \"@mui/icons-material\": \"^5.14.1\",\n    \"@mui/material\": \"^5.14.1\",\n    \"@mui/styled-engine-sc\": \"^5.12.0\",\n    \"@mui/x-data-grid\": \"^6.10.2\",\n    \"@testing-library/jest-dom\": \"^5.17.0\",\n    \"@testing-library/react\": \"^13.4.0\",\n    \"@testing-library/user-event\": \"^13.5.0\",\n    \"axios\": \"^1.4.0\",\n    \"bootstrap\": \"^5.3.0\",\n    \"mdb-react-ui-kit\": \"^6.1.0\",\n    \"mdb-ui-kit\": \"^6.4.0\",\n    \"react\": \"^18.2.0\",\n    \"react-bootstrap\": \"^2.8.0\",\n    \"react-dom\": \"^18.2.0\",\n    \"react-router-dom\": \"^6.14.2\",\n    \"react-scripts\": \"5.0.1\",\n    \"styled-components\": \"^5.3.11\",\n    \"web-vitals\": \"^2.1.4\"\n  },\n  \"scripts\": {\n    \"start\": \"react-scripts start\",\n    \"build\": \"react-scripts build\",\n    \"test\": \"react-scripts test\",\n    \"eject\": \"react-scripts eject\"\n  },\n  \"eslintConfig\": {\n    \"extends\": [\n      \"react-app\",\n      \"react-app/jest\"\n    ]\n  },\n  \"browserslist\": {\n    \"production\": [\n      \">0.2%\",\n      \"not dead\",\n      \"not op_mini all\"\n    ],\n    \"development\": [\n      \"last 1 chrome version\",\n      \"last 1 firefox version\",\n      \"last 1 safari version\"\n    ]\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package.json b/package.json
+--- a/package.json	(revision 7ac4237de141e4e68608dd37fa5aace9116e2735)
++++ b/package.json	(date 1694947190684)
+@@ -9,11 +9,13 @@
+     "@mui/material": "^5.14.1",
+     "@mui/styled-engine-sc": "^5.12.0",
+     "@mui/x-data-grid": "^6.10.2",
++    "@mui/x-date-pickers": "^6.12.1",
+     "@testing-library/jest-dom": "^5.17.0",
+     "@testing-library/react": "^13.4.0",
+     "@testing-library/user-event": "^13.5.0",
+     "axios": "^1.4.0",
+     "bootstrap": "^5.3.0",
++    "dayjs": "^1.11.9",
+     "mdb-react-ui-kit": "^6.1.0",
+     "mdb-ui-kit": "^6.4.0",
+     "react": "^18.2.0",

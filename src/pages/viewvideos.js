@@ -4,6 +4,7 @@ import '../components/navbar.js';
 import '../components/navbar.css';
 import Navbar from '../components/navbar.js';
 import Video from './videoplayer.js';
+import Exercise from "./exercise.js";
 import Subtitle from './subject-title.js';
 
 
@@ -13,7 +14,7 @@ const viewVideos = () => {
       <Navbar />
       <div className="app">
         <Subtitle />
-        <Video />
+        <Exercise />
       </div>
     </div>
   );
