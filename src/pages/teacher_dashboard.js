@@ -1,53 +1,45 @@
-import './teacher_dashboard.css';
+import './student_dashboard.css';
 import Navbar from '../components/navbar.js';
+import teacherSubjects from '../components/teachSubjectTable.js';
+import BasicDateCalendar from '../components/calendar.js';
+import QuoteOfTheDay from '../components/quote';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-// function NavBar() {
-//   return (
-//     <nav className="navbar">
-//       <h2 class="logo">logo</h2>
-//       <ul className="nav-list">
-//         <li className="nav-item"><h2><a href="/">Home</a></h2></li>
-//         <li className="nav-item"><h2><a href="/">Students</a></h2></li>
-//         <li className="nav-item"><h2><a href="/">Online Forums</a></h2></li>
-//         <li className="nav-item" id='Logout'> <h2><a href="/">Log Out</a></h2></li>
-//       </ul>
-//     </nav>
-//   );
-// }
-const subjects = ['Math', 'History', 'English','French','Science','Geography'];
-
-function ListDiv(props) {
-  return (
-    <div className="list-div">
-      <h2 class='subName'>{props.subject}</h2>
-      <div className="link-buttons">
-        <a href="/" className="button">View Course</a>
-        <a href="/" className="button">Manage Progress</a>
-      </div>
-    </div>
-  );
-}
-
+//Welcome message
 function Welcome() {
   return (
-    <div class='Welcome_div'>
-      <h1>Welcome to your dashboard!</h1>
-    </div>
+    <Grid container justify="flex-start" padding={5}>
+      <Typography variant="h2" component="h1">
+        Welcome to your dashboard!
+      </Typography>
+    </Grid>
   );
 }
 
-function teacherdashboard() {
+function studentdashboard() {
   return (
     <div className="App">
       <Navbar />
       <Welcome />
-      <div className="list-div-container">
+      
+      {/* <div className="list-div-container">
       {subjects.map((subject, index) => (
       <ListDiv key={index} subject={subject} />
       ))}
-      </div>
+      </div> */}
+      <Grid container spacing={10} padding={5}>
+        <Grid item xs={7}>
+          <teacherSubjects />
+        </Grid>
+        <Grid item xs={4}>
+          <BasicDateCalendar />
+          <QuoteOfTheDay />
+        </Grid>
+          
+      </Grid>
     </div>
   );
 }
 
-export default teacherdashboard;
+export default studentdashboard;
