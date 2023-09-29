@@ -22,6 +22,7 @@ function App() {
         <Route path='upload-materials' element={<UploadMats />}></Route>
         <Route path='progress' element={<Progress/>}></Route>
         <Route path='error' element={<Errorpage/>}></Route> 
+        <Route path='upload-videos' element={<UploadVideos/>}></Route> 
       </Routes>
     </div>
   );

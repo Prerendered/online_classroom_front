@@ -1,6 +1,6 @@
 import './student_dashboard.css';
 import Navbar from '../components/navbar.js';
-import teacherSubjects from '../components/teachSubjectTable.js';
+import SubjectsTable  from '../components/teacherSubjectTable.js';
 import BasicDateCalendar from '../components/calendar.js';
 import QuoteOfTheDay from '../components/quote';
 import Grid from '@mui/material/Grid';
@@ -30,7 +30,7 @@ function studentdashboard() {
       </div> */}
       <Grid container spacing={10} padding={5}>
         <Grid item xs={7}>
-          <teacherSubjects />
+          <SubjectsTable />
         </Grid>
         <Grid item xs={4}>
           <BasicDateCalendar />

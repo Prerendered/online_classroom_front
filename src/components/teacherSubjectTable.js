@@ -25,7 +25,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-import ViewTopic from './topic_popups';
+import ViewTopic from './teacherTopicPopUp';
 
 
 //table containing the subject that the students can get access to
