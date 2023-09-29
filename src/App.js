@@ -8,6 +8,7 @@ import UploadMats from './pages/uploadmats.js';
 import Progress from './pages/manage_progress.js';
 import StudentDashboard from './pages/student_dashboard.js';
 import TeacherDashboard from './pages/teacher_dashboard.js';
+import Navbar from './components/navbar.js';
 import StudentPage from './pages/forum_student.js';
 import TeacherPage from './pages/forum_teacher.js';
 import './App.css';
