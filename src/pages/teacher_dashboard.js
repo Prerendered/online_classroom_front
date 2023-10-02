@@ -22,12 +22,6 @@ function studentdashboard() {
     <div className="App">
       <Navbar />
       <Welcome />
-      
-      {/* <div className="list-div-container">
-      {subjects.map((subject, index) => (
-      <ListDiv key={index} subject={subject} />
-      ))}
-      </div> */}
       <Grid container spacing={10} padding={5}>
         <Grid item xs={7}>
           <SubjectsTable />
