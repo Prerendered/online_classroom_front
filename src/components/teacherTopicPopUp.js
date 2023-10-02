@@ -24,6 +24,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 
 const ViewTopic = ({ subjectName }) => {
   // Initialize rows as an empty array
@@ -105,6 +108,10 @@ const ViewTopic = ({ subjectName }) => {
                 {row.name}
               </TableCell>
               <TableCell align="right">
+                <FormControlLabel
+                  control={<Switch defaultChecked={false} size="small" />}
+                  label="Completed"
+                />
                 <Button
                   variant="outlined"
                   onClick={() => handleClickOpen(row.name)}
