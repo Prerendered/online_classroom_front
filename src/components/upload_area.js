@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import { Box, Button, Grid, styled, Typography, Input } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
@@ -22,9 +23,52 @@ const UploadArea = () => {
     setFile(selectedFile);
   };
 
-  const handleUpload = () => {
-    // Handle file upload logic here
-    console.log("File uploaded:", file);
+  const handleUpload = async () => {
+    const authToken = "801940911266-nn1g9cfe1r084drg5v6o75rq1r59tedn.apps.googleusercontent.com"; // Obtain this token via OAuth 2.0
+
+    const videoMetadata = {
+      snippet: {
+        title: "Test", // Replace with title from your other page
+        description: "Test", // Replace with description from your other page
+        categoryId: "22", // The YouTube video category ID
+      },
+      status: {
+        privacyStatus: "unlisted", // Set video privacy status
+      },
+    };
+
+    const videoUploadConfig = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      // Step 1: Initialize the video upload
+      const initUploadResponse = await axios.post(
+        "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
+        videoMetadata,
+        videoUploadConfig
+      );
+
+      const uploadUrl = initUploadResponse.headers.location;
+
+      // Step 2: Upload the video file
+      const fileUploadConfig = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": file.type,
+          "X-Upload-Content-Length": file.size,
+        },
+      };
+
+      const uploadResponse = await axios.put(uploadUrl, file, fileUploadConfig);
+
+      console.log("Video uploaded successfully:", uploadResponse.data);
+    } catch (error) {
+      console.error("Error uploading video:", error);
+    }
   };
 
   return (
@@ -64,7 +108,7 @@ const UploadArea = () => {
         <Input
           type="file"
           id="fileInput"
-          inputProps={{ accept: ".mp4" }}
+          inputProps={{ accept: ".mp4,.webm" }}
           onChange={handleFileInputChange}
         />
       </Box>

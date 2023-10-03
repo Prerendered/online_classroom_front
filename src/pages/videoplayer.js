@@ -1,4 +1,4 @@
-// This file renders the video player onto the page. 
+// This file renders the video player onto the page.
 // Next to video player, exercises/questions are also rendered.
 // if there is no videos, a loading circle is seen on screen.
 // video is marked as completed, when user succesfully answers all questions.
@@ -13,14 +13,22 @@
 // TopicName -> name of the topic (str)
 // subjectname -> name of the subject (str)
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // Import useParams to get name from url
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
 
-import { Grid, Paper, TextField, Button, Typography, Card, CircularProgress } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CircularProgress,
+} from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 const Video = () => {
   const [video, setVideo] = useState(null);
@@ -31,19 +39,21 @@ const Video = () => {
   const [isChecked, setIsChecked] = useState(false); // for checkbox
   // Define the sleep function
   const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
 
   // Function to toggle the checkbox state
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
 
-   // Fetch data from database
+  // Fetch data from database
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v2/topics/getAll');
+        const response = await fetch(
+          "http://localhost:8080/api/v2/topics/getAll"
+        );
         const result = await response.json();
 
         const transformedRows = result.map((entry) => ({
@@ -56,7 +66,14 @@ const Video = () => {
         setAllRows(transformedRows); // Populate rows with fetched data, all data
       } catch (error) {
         return (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "80vh",
+            }}
+          >
             <CircularProgress />
           </div>
         );
@@ -66,32 +83,33 @@ const Video = () => {
   }, []);
 
   useEffect(() => {
-    const matchingRow = allRows.find(row => row.TopicName === name);
+    const matchingRow = allRows.find((row) => row.TopicName === name);
     if (matchingRow) {
       fetchVideo(matchingRow.videoID);
     }
-  }, [allRows,name]); // Re-run the effect if 'name' and array allRows change
+  }, [allRows, name]); // Re-run the effect if 'name' and array allRows change
 
   // Function to do change completion to true when the checkbox is checked
   const checkboxAction = async () => {
-
     if (isChecked) {
-      const matchingRow = allRows.find(row => row.TopicName === name);
+      const matchingRow = allRows.find((row) => row.TopicName === name);
 
       if (matchingRow) {
         const id = matchingRow.objID;
-        const data = { 
-          SubjectName : matchingRow.subjectname,
-          TopicName : matchingRow.TopicName,
-          videoID : matchingRow.videoID,
-          topicCompletion: "True" };
-        axios.put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        const data = {
+          SubjectName: matchingRow.subjectname,
+          TopicName: matchingRow.TopicName,
+          videoID: matchingRow.videoID,
+          topicCompletion: "True",
+        };
+        axios
+          .put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
 
       // Sleep for 1 second before navigating back
@@ -114,34 +132,47 @@ const Video = () => {
 
       setVideo(response.data.items[0]);
     } catch (error) {
-      console.error('Error fetching video:', error);
+      console.error("Error fetching video:", error);
     }
   };
 
   // no video = infinite loading
   if (!video) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
         <CircularProgress />
       </div>
     );
   }
 
   return (
-
     // video player: positioning
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "80vh",
+      }}
+    >
       <Card
         style={{
-          width: '55%', // Adjust this for desired width
+          width: "55%", // Adjust this for desired width
         }}
       >
         <div
           style={{
-            position: 'relative',
-            paddingBottom: '56.25%', // 16:9 aspect ratio
+            position: "relative",
+            paddingBottom: "56.25%", // 16:9 aspect ratio
             height: 0,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
         >
           <iframe
@@ -149,19 +180,30 @@ const Video = () => {
             title={video.snippet.title}
             frameBorder="0"
             allowFullScreen
-            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
           ></iframe>
         </div>
       </Card>
-      
+
       {/* CheckBox, replace with exercise from Emmanuel*/}
-      
-    {/* CheckBox */}
-    {/* CheckBox */}
-    <FormGroup>
-      <FormControlLabel control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />} label="Viewed" />
-    </FormGroup>
-      
+
+      {/* CheckBox */}
+      {/* CheckBox */}
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
+          }
+          label="Viewed"
+        />
+      </FormGroup>
+
       {/* Exercise Box
       <Grid item xs={12} md={4} paddingLeft={2} width={'35%'}>
         <Paper elevation={4} style={{ padding: '5%', }}>
@@ -225,7 +267,6 @@ const Video = () => {
             </Button>
         </Paper>
       </Grid>  */}
-
     </div>
   );
 };

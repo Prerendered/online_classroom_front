@@ -15,6 +15,9 @@
 // completedRows => [] => array of data after filtering if topic is completed => if topic is in this array, the view video button is disabled for that topic
 
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -23,16 +26,27 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { CircularProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 const ViewTopic = ({ subjectName }) => {
   // Initialize rows as an empty array
   const [allRows, setAllRows] = useState([]);
+  const [isChecked, setIsChecked] = useState(false); // for completed/not completed switch
+  const navigate = useNavigate();
+  const { name } = useParams(); // Getting the 'name' from the URL
 
-  // Fetch data from database
+  // take the name of the subject and passes it as the url. used to view videos in next page
+  const handleClickOpen = () => {
+    navigate("/upload-videos");
+  };
+
+  // Function to toggle the switch state
+  const handleSwitchChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  // Fetch data from database to populate topics table
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,6 +60,7 @@ const ViewTopic = ({ subjectName }) => {
           name: entry.topicName,
           subjectname: entry.subjectName,
           completion: entry.topicCompletion,
+          checked: entry.topicCompletion === "True", // Assume topicCompletion is a string
         }));
         setAllRows(transformedRows); // Populate rows with fetched data, all data
       } catch (error) {
@@ -75,13 +90,36 @@ const ViewTopic = ({ subjectName }) => {
     completedRows = rows.filter((item) => item.completion === "True");
   }
 
-  const navigate = useNavigate();
+  // Function to do change completion to true when the switch is checked
+  const switchAction = async () => {
+    if (isChecked) {
+      const matchingRow = allRows.find((row) => row.TopicName === name);
 
-  // take the name of the subject and passes it as the url. used to view videos in next page
-  const handleClickOpen = () => {
-    navigate("/upload-videos");
+      if (matchingRow) {
+        const id = matchingRow.objID;
+        const data = {
+          SubjectName: matchingRow.subjectname,
+          TopicName: matchingRow.TopicName,
+          videoID: matchingRow.videoID,
+          topicCompletion: "True",
+        };
+        axios
+          .put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+    return false;
   };
 
+  useEffect(() => {
+    switchAction();
+  }, [isChecked]); // Dependency array to watch for changes in allRows
+  
   return (
     <TableContainer
       component={Paper}
@@ -109,7 +147,14 @@ const ViewTopic = ({ subjectName }) => {
               </TableCell>
               <TableCell align="right">
                 <FormControlLabel
-                  control={<Switch defaultChecked={false} size="small" />}
+                  control={
+                    <Switch
+                      defaultChecked={row.checked}
+                      checked={row.checked}
+                      onChange={ handleSwitchChange }
+                      size="small"
+                    />
+                  }
                   label="Completed"
                 />
                 <Button
