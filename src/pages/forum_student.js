@@ -76,22 +76,10 @@ const StudentPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(''); // Track selected category for sorting
     const [categories, setCategories] = useState([]);
 
-    const handleOpenCategoryDialog = async () => {
-        try {
-            // Fetch the list of categories from the backend
-            const response = await fetch('http://localhost:8080/api/forum/search/category'); // Use the correct endpoint
-            if (response.ok) {
-                const data = await response.json();
-                setCategories(data.categories); // Assuming 'data' is an object with a 'categories' property containing the array of categories
-                setCategoryDialogOpen(true);
-            } else {
-                console.error('Failed to fetch categories from the backend.');
-            }
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-        }
-    };
 
+    const handleOpenCategoryDialog = () => {
+        setCategoryDialogOpen(true);
+    };
 
     const handleCloseCategoryDialog = () => {
         setCategoryDialogOpen(false);
@@ -113,32 +101,50 @@ const StudentPage = () => {
         setCategoryDialogOpen(false);
     };
 
-
-
-    // Function to fetch questions and answers from the backend
-    const fetchQuestionsAndAnswers = async () => {
+    // Function to fetch forum data from the backend
+    const fetchForumData = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/forum/getAll'); // Replace with your actual API endpoint
 
             if (response.ok) {
                 const data = await response.json();
-
-                // Set the questions directly without filtering initially
                 setQuestions(data);
+
                 // Separate answers if needed
                 const answerList = data.filter(item => !!item.answer);
                 setAnswers(answerList);
             } else {
-                console.error('Failed to fetch questions and answers.');
+                console.error('Failed to fetch forum data.');
             }
         } catch (error) {
-            console.error('Error fetching questions and answers:', error);
+            console.error('Error fetching forum data:', error);
         }
     };
 
-    // Fetch questions and answers when the component mounts
+    // Function to fetch categories from the backend
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/forum/search/categories');
+            if (response.ok) {
+                const data = await response.json();
+                const parsedCategories = data.map((item) => {
+                    const categoryData = JSON.parse(item); // Parse the JSON string
+                    return categoryData.category;
+                });
+                setCategories(parsedCategories);
+            } else {
+                console.error('Failed to fetch categories from the backend.');
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+
+
+    // Fetch forum data and categories when the component mounts
     useEffect(() => {
-        fetchQuestionsAndAnswers();
+        fetchForumData();
+        fetchCategories();
     }, []);
 
     const handleSubmitQuestion = async () => {
@@ -191,7 +197,7 @@ const StudentPage = () => {
                     </Button>
                     <TableContainer component={Paper} style={{ minWidth: 800, maxHeight: 500 }}>
                         <Table>
-                            <TableHead sx={{ backgroundColor: '#f2f2f2', color: '#333', fontWeight: 'bold', borderBottom: '2px solid #ddd', }}>
+                            <TableHead sx={{ backgroundColor: '#f2f2f2', color: '#333', fontWeight: 'bold', borderBottom: '2px solid #ddd' }}>
                                 <TableRow>
                                     <TableCell>Title</TableCell>
                                     <TableCell>Question</TableCell>
@@ -233,41 +239,41 @@ const StudentPage = () => {
                 >
                     Ask a Question
                 </Button>
-
                 {/* Dialog for asking a question */}
                 <Dialog open={isDialogOpen} onClose={handleCloseDialog} sx={{ margin: '2%', padding: '2%', paddingTop: '5%' }}>
                     <DialogTitle>Ask a Question</DialogTitle>
-                    <DialogContent>
+                    <DialogContent sx={{ justifyContent: 'space-between', paddingRight: '16px', paddingTop: '2px' }}>
                         <TextField
                             label="Title"
                             fullWidth
                             variant="outlined"
                             value={questionData.title}
                             onChange={(e) => setQuestionData({ ...questionData, title: e.target.value })}
+                            sx={{ marginBottom: '16px', marginTop: '8px' }}
                         />
-                        <TextField
-                            label="Your Question"
-                            fullWidth
-                            variant="outlined"
-                            value={questionData.question}
-                            onChange={(e) => setQuestionData({ ...questionData, question: e.target.value })}
+                        <TextField sx={{ marginBottom: '16px' }}
+                                   label="Your Question"
+                                   fullWidth
+                                   variant="outlined"
+                                   value={questionData.question}
+                                   onChange={(e) => setQuestionData({ ...questionData, question: e.target.value })}
                         />
-                        <TextField
-                            label="Category"
-                            fullWidth
-                            variant="outlined"
-                            value={questionData.category}
-                            onChange={(e) => setQuestionData({ ...questionData, category: e.target.value })}
+                        <TextField sx={{ marginBottom: '16px' }}
+                                   label="Category"
+                                   fullWidth
+                                   variant="outlined"
+                                   value={questionData.category}
+                                   onChange={(e) => setQuestionData({ ...questionData, category: e.target.value })}
                         />
-                        <TextField
-                            label="Your Name"
-                            fullWidth
-                            variant="outlined"
-                            value={questionData.user}
-                            onChange={(e) => setQuestionData({ ...questionData, user: e.target.value })}
+                        <TextField sx={{ marginBottom: '16px' }}
+                                   label="Your Name"
+                                   fullWidth
+                                   variant="outlined"
+                                   value={questionData.user}
+                                   onChange={(e) => setQuestionData({ ...questionData, user: e.target.value })}
                         />
                     </DialogContent>
-                    <DialogActions>
+                    <DialogActions sx={{ justifyContent: 'space-between', paddingRight: '16px' }}>
                         <Button onClick={handleCloseDialog} color="primary">
                             Cancel
                         </Button>
