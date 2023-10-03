@@ -21,11 +21,15 @@ const TeacherPage = () => {
     const [answerData, setAnswerData] = useState({
         questionId: '',
         answer: '',
+        question: '',
     });
 
     const [questions, setQuestions] = useState([]);
     const [isDialogOpen, setDialogOpen] = useState(false);
     const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+    const [isAnswerDialogOpen, setAnswerDialogOpen] = useState(false);
+    const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [questionToDelete, setQuestionToDelete] = useState(null);
 
     // Function to fetch questions from the backend
     const fetchQuestions = async () => {
@@ -78,7 +82,6 @@ const TeacherPage = () => {
             console.error('Error updating the answer:', error);
         }
     };
-
     const handleDeleteQuestion = async (questionId) => {
         try {
             // Send a DELETE request to the backend API to delete the question
@@ -89,12 +92,25 @@ const TeacherPage = () => {
             if (response.ok) {
                 // If the request was successful, update the questions state to remove the deleted question
                 setQuestions(questions.filter(question => question._id !== questionId));
+
+                // Close the delete dialog
+                setDeleteDialogOpen(false);
             } else {
                 console.error('Failed to delete the question.');
             }
         } catch (error) {
             console.error('Error deleting the question:', error);
         }
+    };
+
+    const handlePostAnswerClick = (questionId, question) => {
+        setAnswerData({ questionId, answer: '', question });
+        setAnswerDialogOpen(true);
+    };
+
+    const handleDeleteQuestionClick = (questionId) => {
+        setQuestionToDelete(questionId);
+        setDeleteDialogOpen(true);
     };
 
     const handleViewForum = () => {
@@ -105,13 +121,21 @@ const TeacherPage = () => {
         setDialogOpen(false);
     };
 
+    const handleCloseAnswerDialog = () => {
+        setAnswerDialogOpen(false);
+    };
+
+    const handleCloseDeleteDialog = () => {
+        setDeleteDialogOpen(false);
+    };
+
     return (
         <Layout>
             <Container>
                 {/* Display questions in a scrollable table */}
                 <TableContainer component={Paper}>
                     <Table>
-                        <TableHead>
+                        <TableHead  sx={{ backgroundColor: '#f2f2f2', color: '#333', fontWeight: 'bold',  borderBottom: '2px solid #ddd'}}>
                             <TableRow>
                                 <TableCell>Title</TableCell>
                                 <TableCell>Question</TableCell>
@@ -119,7 +143,7 @@ const TeacherPage = () => {
                                 <TableCell>User</TableCell>
                                 <TableCell>Action</TableCell>
                             </TableRow>
-                        </TableHead>
+                        </TableHead >
                         <TableBody>
                             {unansweredQuestions.map((question) => (
                                 <TableRow key={question._id}>
@@ -131,15 +155,16 @@ const TeacherPage = () => {
                                         <Button
                                             variant="contained"
                                             color="primary"
-                                            onClick={() => setAnswerData({ questionId: question._id, answer: '' })}
+                                            onClick={() => handlePostAnswerClick(question._id, question._question)}
                                         >
                                             Answer
                                         </Button>
-                                        <Button style={{ marginLeft: '8px', backgroundColor: '#ff0000' }}
-                                                variant="contained"
-                                                color="secondary"
-                                                onClick={() => handleDeleteQuestion(question._id)}
-                                                startIcon={<DeleteIcon />}
+                                        <Button
+                                            style={{ marginLeft: '2px', backgroundColor: '#ff0000' }}
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={() => handleDeleteQuestionClick(question._id)}
+                                            startIcon={<DeleteIcon />}
                                         >
                                             Delete
                                         </Button>
@@ -152,18 +177,46 @@ const TeacherPage = () => {
 
                 {/* Post Answer Section */}
                 {answerData.questionId && (
-                    <div>
-                        <TextField
-                            label="Answer"
-                            fullWidth
-                            variant="outlined"
-                            value={answerData.answer}
-                            onChange={(e) => setAnswerData({ ...answerData, answer: e.target.value })}
-                        />
-                        <Button variant="contained" color="primary" onClick={handlePostAnswer}>
-                            Post Answer
-                        </Button>
-                    </div>
+                    <Dialog open={isAnswerDialogOpen} onClose={handleCloseAnswerDialog} fullWidth maxWidth="lg">
+                        <DialogTitle>Post Answer</DialogTitle>
+                        <DialogContent>
+                            <p>Question: {answerData.question}</p>
+                            <TextField
+                                label="Answer"
+                                fullWidth
+                                variant="outlined"
+                                value={answerData.answer}
+                                onChange={(e) => setAnswerData({ ...answerData, answer: e.target.value })}
+                            />
+                            <Button variant="contained" color="primary" onClick={handlePostAnswer}>
+                                Post Answer
+                            </Button>
+                        </DialogContent>
+                    </Dialog>
+                )}
+
+                {/* Delete Question Confirmation Dialog */}
+                {questionToDelete && (
+                    <Dialog open={isDeleteDialogOpen} onClose={handleCloseDeleteDialog}>
+                        <DialogTitle>Confirm Delete</DialogTitle>
+                        <DialogContent>
+                            <p>Are you sure you want to delete this question?</p>
+                            <Button
+                                style={{ marginRight: '2px', backgroundColor: '#ff0000' }}
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => {
+                                    handleDeleteQuestion(questionToDelete);
+                                    setDeleteDialogOpen(false);
+                                }}
+                            >
+                                Yes, Delete
+                            </Button>
+                            <Button variant="contained" color="primary" onClick={handleCloseDeleteDialog}>
+                                Cancel
+                            </Button>
+                        </DialogContent>
+                    </Dialog>
                 )}
 
                 <Button
@@ -183,7 +236,6 @@ const TeacherPage = () => {
                             <Table>
                                 <TableHead sx={{ backgroundColor: '#f2f2f2', color: '#333', fontWeight: 'bold',  borderBottom: '2px solid #ddd',}}>
                                     <TableRow>
-                                        <TableCell>Title</TableCell>
                                         <TableCell>Question</TableCell>
                                         <TableCell>Category</TableCell>
                                         <TableCell>User</TableCell>
@@ -193,7 +245,6 @@ const TeacherPage = () => {
                                 <TableBody>
                                     {questions.map((question) => (
                                         <TableRow key={question._id}>
-                                            <TableCell>{question._title}</TableCell>
                                             <TableCell>{question._question}</TableCell>
                                             <TableCell>{question._category}</TableCell>
                                             <TableCell>{question._user}</TableCell>
@@ -201,9 +252,18 @@ const TeacherPage = () => {
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={() => setAnswerData({ questionId: question._id, answer: '' })}
+                                                    onClick={() => handlePostAnswerClick(question._id, question._question)}
                                                 >
                                                     Answer
+                                                </Button>
+                                                <Button
+                                                    style={{ marginLeft: '2px', backgroundColor: '#ff0000' }}
+                                                    variant="contained"
+                                                    color="secondary"
+                                                    onClick={() => handleDeleteQuestionClick(question._id)}
+                                                    startIcon={<DeleteIcon />}
+                                                >
+                                                    Delete
                                                 </Button>
                                             </TableCell>
                                         </TableRow>

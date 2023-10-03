@@ -75,7 +75,7 @@ const StudentPage = () => {
     const [isCategoryDialogOpen, setCategoryDialogOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(''); // Track selected category for sorting
     const [categories, setCategories] = useState([]);
-
+    const [uniqueCategories, setUniqueCategories] = useState([]);
 
     const handleOpenCategoryDialog = () => {
         setCategoryDialogOpen(true);
@@ -87,12 +87,17 @@ const StudentPage = () => {
 
     const handleSortByCategory = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/forum/search/category/${selectedCategory}`);
-            if (response.ok) {
-                const data = await response.json();
-                setQuestions(data);
+            if (selectedCategory === '') {
+                // If "All" is selected, fetch all forum data
+                fetchForumData();
             } else {
-                console.error('Failed to sort questions by category.');
+                const response = await fetch(`http://localhost:8080/api/forum/search/category/${selectedCategory}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setQuestions(data);
+                } else {
+                    console.error('Failed to sort questions by category.');
+                }
             }
         } catch (error) {
             console.error('Error sorting questions by category:', error);
@@ -132,6 +137,10 @@ const StudentPage = () => {
                     return categoryData.category;
                 });
                 setCategories(parsedCategories);
+
+                // Remove duplicate category names
+                const uniqueCategories = Array.from(new Set(parsedCategories));
+                setUniqueCategories(uniqueCategories);
             } else {
                 console.error('Failed to fetch categories from the backend.');
             }
@@ -139,7 +148,6 @@ const StudentPage = () => {
             console.error('Error fetching categories:', error);
         }
     };
-
 
     // Fetch forum data and categories when the component mounts
     useEffect(() => {
@@ -186,12 +194,13 @@ const StudentPage = () => {
                     <ForumIcon sx={{ fontSize: 48, color: 'primary' }} />
                     <h2>Online Forum</h2>
                 </div>
-                <div style={{ overflowX: 'auto' }}>
+                <div style={{ overflowX: 'auto', marginBottom: '2px' }}>
                     {/* Add a button to open the category sorting dialog */}
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={handleOpenCategoryDialog}
+                        style={{ marginBottom: '2px' }}
                     >
                         Sort by Category
                     </Button>
@@ -296,8 +305,8 @@ const StudentPage = () => {
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                             >
                                 <FormControlLabel value="" control={<Radio />} label="All" />
-                                {/* Fetch the categories from the database and map them to Radio buttons */}
-                                {categories.map((category) => (
+                                {/* Fetch the unique categories and map them to Radio buttons */}
+                                {uniqueCategories.map((category) => (
                                     <FormControlLabel
                                         key={category}
                                         value={category}
