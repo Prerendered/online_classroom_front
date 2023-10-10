@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import axios from 'axios';
-import { Box, Button, Grid, styled, Typography, Input } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Box, Button, Grid, TextField, Typography, Input } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import "../App.css";
 
 const UploadArea = () => {
   const [file, setFile] = useState(null);
+  const [videoName, setVideoName] = useState("");
+  const [videoDescription, setVideoDescription] = useState("");
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -24,110 +26,149 @@ const UploadArea = () => {
   };
 
   const handleUpload = async () => {
-    const authToken = "801940911266-nn1g9cfe1r084drg5v6o75rq1r59tedn.apps.googleusercontent.com"; // Obtain this token via OAuth 2.0
+    if (!file) return;
 
-    const videoMetadata = {
-      snippet: {
-        title: "Test", // Replace with title from your other page
-        description: "Test", // Replace with description from your other page
-        categoryId: "22", // The YouTube video category ID
-      },
-      status: {
-        privacyStatus: "unlisted", // Set video privacy status
-      },
-    };
-
-    const videoUploadConfig = {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        "Content-Type": "application/json",
-      },
-    };
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "unpgrady"); // replace 'unpgrady' with the name of your upload preset if different
+    formData.append("context", `alt=${videoDescription}|caption=${videoName}`); 
 
     try {
-      // Step 1: Initialize the video upload
-      const initUploadResponse = await axios.post(
-        "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
-        videoMetadata,
-        videoUploadConfig
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/dalwgxr3j/video/upload`, // replace 'your_cloud_name' with your Cloudinary cloud name
+        formData
       );
-
-      const uploadUrl = initUploadResponse.headers.location;
-
-      // Step 2: Upload the video file
-      const fileUploadConfig = {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": file.type,
-          "X-Upload-Content-Length": file.size,
-        },
-      };
-
-      const uploadResponse = await axios.put(uploadUrl, file, fileUploadConfig);
-
-      console.log("Video uploaded successfully:", uploadResponse.data);
+      console.log("Video uploaded successfully:", response.data);
     } catch (error) {
       console.error("Error uploading video:", error);
     }
   };
 
   return (
-    <Box
-      className="dropzone-container"
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: 10,
-      }}
+    <Grid
+      container
+      sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
     >
-      <Box
-        className="drop-zone"
-        epic
+      <Grid
+        item
+        xs
         sx={{
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           justifyContent: "center",
-          margin: 10,
+          alignItems: "center",
+          height: "75%",
+          margin: "2%",
         }}
       >
-        {file ? (
-          <Typography className="drop-custom0">
-            File selected: {file.name}
-          </Typography>
-        ) : (
-          <Typography className="drop-custom">
-            Drag and drop file here
-            <Typography className="drop-custom2">or</Typography>
-          </Typography>
-        )}
-        <Input
-          type="file"
-          id="fileInput"
-          inputProps={{ accept: ".mp4,.webm" }}
-          onChange={handleFileInputChange}
-        />
-      </Box>
-      {/* Upload button */}
-      <Box className="upload-button-container" sx={{ margin: 10 }}>
-        <Button
-          variant="contained"
-          className="upload-button"
+        <div>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="vid_title"
+            label="Video Title"
+            name="vid_title"
+            value={videoName}
+            onChange={(e) => setVideoName(e.target.value)}
+            autoFocus
+          />
+
+          <TextField
+            id="vid_desc"
+            label="Video description"
+            multiline
+            fullWidth
+            rows={4}
+            variant="filled"
+            value={videoDescription}
+            onChange={(e) => setVideoDescription(e.target.value)}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 2,
+              bgcolor: "black",
+              color: "white",
+              "&:hover": { bgcolor: "#00ADB5", color: "white" },
+            }}
+          >
+            Submit
+          </Button>
+        </div>
+      </Grid>
+      <Grid
+        item
+        xs={8}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <Box
+          className="dropzone-container"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
           sx={{
-            bgcolor: "black",
-            color: "white",
-            "&:hover": { bgcolor: "#00ADB5", color: "white" },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: 10,
           }}
-          onClick={handleUpload}
         >
-          Upload Video
-        </Button>
-      </Box>
-    </Box>
+          <Box
+            className="drop-zone"
+            epic
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 10,
+            }}
+          >
+            {file ? (
+              <Typography className="drop-custom0">
+                File selected: {file.name}
+              </Typography>
+            ) : (
+              <Typography className="drop-custom">
+                Drag and drop file here
+                <Typography className="drop-custom2">or</Typography>
+              </Typography>
+            )}
+
+            <Input
+              type="file"
+              id="fileInput"
+              inputProps={{ accept: ".mp4,.webm" }}
+              onChange={handleFileInputChange}
+            />
+          </Box>
+          {/* Upload button */}
+          <Box className="upload-button-container" sx={{ margin: 10 }}>
+            <Button
+              variant="contained"
+              className="upload-button"
+              sx={{
+                bgcolor: "black",
+                color: "white",
+                "&:hover": { bgcolor: "#00ADB5", color: "white" },
+              }}
+              onClick={handleUpload}
+            >
+              Upload Video
+            </Button>
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -17,6 +17,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
 
+import Exercise from "../components/exercises.js";
+
 import {
   Grid,
   Paper,
@@ -33,19 +35,7 @@ import Checkbox from "@mui/material/Checkbox";
 const Video = () => {
   const [video, setVideo] = useState(null);
   const [allRows, setAllRows] = useState([]);
-  const navigate = useNavigate();
   const { name } = useParams(); // Getting the 'name' from the URL
-
-  const [isChecked, setIsChecked] = useState(false); // for checkbox
-  // Define the sleep function
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
-  // Function to toggle the checkbox state
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
 
   // Fetch data from database
   useEffect(() => {
@@ -88,40 +78,6 @@ const Video = () => {
       fetchVideo(matchingRow.videoID);
     }
   }, [allRows, name]); // Re-run the effect if 'name' and array allRows change
-
-  // Function to do change completion to true when the checkbox is checked
-  const checkboxAction = async () => {
-    if (isChecked) {
-      const matchingRow = allRows.find((row) => row.TopicName === name);
-
-      if (matchingRow) {
-        const id = matchingRow.objID;
-        const data = {
-          SubjectName: matchingRow.subjectname,
-          TopicName: matchingRow.TopicName,
-          videoID: matchingRow.videoID,
-          topicCompletion: "True",
-        };
-        axios
-          .put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-
-      // Sleep for 1 second before navigating back
-      await sleep(1000);
-      navigate(`/student-dashboard`);
-    }
-    return false;
-  };
-
-  useEffect(() => {
-    checkboxAction(); // You can call this function wherever you need the checkbox state
-  }, [isChecked]); // Dependency array to watch changes to `isChecked`
 
   // get video from youtube api
   const fetchVideo = async (videoId) => {
@@ -190,83 +146,7 @@ const Video = () => {
           ></iframe>
         </div>
       </Card>
-
-      {/* CheckBox, replace with exercise from Emmanuel*/}
-
-      {/* CheckBox */}
-      {/* CheckBox */}
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
-          }
-          label="Viewed"
-        />
-      </FormGroup>
-
-      {/* Exercise Box
-      <Grid item xs={12} md={4} paddingLeft={2} width={'35%'}>
-        <Paper elevation={4} style={{ padding: '5%', }}>
-            <Typography variant="h6" justifyContent={'left'}>Questions</Typography>
-            <Typography variant="body1" style={{ marginTop: '2%' }}>
-                {questions.length > 0 ? questions[0].question : 'No questions available'}
-            </Typography>
-            <TextField
-                name="question one"
-                label= {questions[0]}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                onChange={handleAnswerChange}
-                value={givenAnswer}
-            />
-            <TextField
-                name = "question two"
-                label= {questions[1]}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                // onChange={handleAnswerChange}
-                // value={givenAnswer}
-            />
-            <TextField
-                name = "question three"
-                // label= {questions[1]}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                // onChange={handleAnswerChange}
-                // value={givenAnswer}
-            />
-            <TextField
-                name = "question four"
-                // label= {questions[1]}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                // onChange={handleAnswerChange}
-                // value={givenAnswer}
-            />
-            <TextField
-                name = "question five"
-                // label= {questions[1]}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                // onChange={handleAnswerChange}
-                // value={givenAnswer}
-            />
-
-            <Button
-                variant="contained"
-                color="primary"
-                // onClick={handleSubmit}
-                style={{ marginTop: '16px' }}
-            >
-                Submit
-            </Button>
-        </Paper>
-      </Grid>  */}
+     <Exercise />
     </div>
   );
 };

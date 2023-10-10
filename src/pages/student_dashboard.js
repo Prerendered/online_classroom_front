@@ -1,10 +1,11 @@
-import './student_dashboard.css';
-import Navbar from '../components/navbar.js';
-import SubjectsTable  from '../components/subjectTable.js';
-import BasicDateCalendar from '../components/calendar.js';
-import QuoteOfTheDay from '../components/quote';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import "./student_dashboard.css";
+import Navbar from "../components/navbar.js";
+import SubjectsTable from "../components/subjectTable.js";
+// import BasicDateCalendar from '../components/calendar.js';
+import StudentCalendar from "../components/studentCalendar.js";
+import QuoteOfTheDay from "../components/quote";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 //Welcome message
 function Welcome() {
@@ -27,10 +28,9 @@ function studentdashboard() {
           <SubjectsTable />
         </Grid>
         <Grid item xs={4}>
-          <BasicDateCalendar />
+          <StudentCalendar />
           <QuoteOfTheDay />
         </Grid>
-          
       </Grid>
     </div>
   );

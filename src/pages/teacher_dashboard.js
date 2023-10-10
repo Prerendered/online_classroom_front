@@ -5,6 +5,7 @@ import BasicDateCalendar from '../components/calendar.js';
 import QuoteOfTheDay from '../components/quote';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import calendar from '../components/teacherCalendar.js';
 
 //Welcome message
 function Welcome() {
