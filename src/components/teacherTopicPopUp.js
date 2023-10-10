@@ -37,8 +37,8 @@ const ViewTopic = ({ subjectName }) => {
   const { name } = useParams(); // Getting the 'name' from the URL
 
   // take the name of the subject and passes it as the url. used to view videos in next page
-  const handleClickOpen = () => {
-    navigate("/upload-videos");
+  const handleClickOpen = (name) => {
+    navigate(`/upload-videos/${name}`);    
   };
 
   // Function to toggle the switch state

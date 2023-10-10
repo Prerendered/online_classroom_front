@@ -5,7 +5,7 @@ import BasicDateCalendar from '../components/calendar.js';
 import QuoteOfTheDay from '../components/quote';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import calendar from '../components/teacherCalendar.js';
+import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
 
 //Welcome message
 function Welcome() {
@@ -19,6 +19,7 @@ function Welcome() {
 }
 
 function studentdashboard() {
+  
   return (
     <div className="App">
       <Navbar />

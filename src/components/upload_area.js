@@ -5,6 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useParams } from "react-router-dom";
 
 import "../App.css";
 
@@ -16,6 +17,7 @@ const UploadArea = () => {
   const [file, setFile] = useState(null);
   const [videoName, setVideoName] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
+  const { name } = useParams(); // Getting the 'name' from the URL
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -46,13 +48,13 @@ const UploadArea = () => {
 
   const handleUpload = async () => {
     if (!file) {
-      setErrorDialogMessage("No file selected");
+      setErrorDialogMessage("Please select a file to upload.");
       setErrorDialogOpen(true);
       return;
     }
 
     if (videoName.trim() === "") {
-      setErrorDialogMessage("Title is required");
+      setErrorDialogMessage("Please add a title to the video.");
       setErrorDialogOpen(true);
       return;
     }
@@ -61,6 +63,7 @@ const UploadArea = () => {
     formData.append("file", file);
     formData.append("upload_preset", "unpgrady"); // replace 'unpgrady' with the name of your upload preset if different
     formData.append("context", `alt=${videoDescription}|caption=${videoName}`);
+    formData.append("public_id", `video/${name}`); // Set custom public_id
 
     try {
       const response = await axios.post(
@@ -91,9 +94,13 @@ const UploadArea = () => {
           <Button onClick={handleCloseDialog}>OK</Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={errorDialogOpen} onClose={handleCloseErrorDialog}>
+      <Dialog
+        open={errorDialogOpen}
+        onClose={handleCloseErrorDialog}
+        sx={{ "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" }}}
+      >
         <DialogTitle>Error</DialogTitle>
-        <Typography variant="body2" sx={{ margin: 2 }}>
+        <Typography variant="h6" sx={{ margin: 2}} align="center">
           {errorDialogMessage}
         </Typography>
         <DialogActions>
@@ -112,6 +119,9 @@ const UploadArea = () => {
         }}
       >
         <div>
+          <Typography gutterBottom variant="h4" component="div" align="left">
+            Topic name: {name}
+          </Typography>
           <TextField
             margin="normal"
             required
