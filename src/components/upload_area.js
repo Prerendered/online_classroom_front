@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, Button, Grid, TextField, Typography, Input } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import "../App.css";
 
 const UploadArea = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [videoName, setVideoName] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
@@ -25,13 +29,25 @@ const UploadArea = () => {
     setFile(selectedFile);
   };
 
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
+    if (videoName.trim() === "") {
+      console.error("Title is required");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "unpgrady"); // replace 'unpgrady' with the name of your upload preset if different
-    formData.append("context", `alt=${videoDescription}|caption=${videoName}`); 
+    formData.append("context", `alt=${videoDescription}|caption=${videoName}`);
 
     try {
       const response = await axios.post(
@@ -39,6 +55,7 @@ const UploadArea = () => {
         formData
       );
       console.log("Video uploaded successfully:", response.data);
+      setDialogOpen(true);
     } catch (error) {
       console.error("Error uploading video:", error);
     }
@@ -49,6 +66,12 @@ const UploadArea = () => {
       container
       sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
     >
+      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+        <DialogTitle>Video uploaded successfully</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>OK</Button>
+        </DialogActions>
+      </Dialog>
       <Grid
         item
         xs
