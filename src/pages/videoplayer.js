@@ -1,41 +1,14 @@
-// This file renders the video player onto the page.
-// Next to video player, exercises/questions are also rendered.
-// if there is no videos, a loading circle is seen on screen.
-// video is marked as completed, when user succesfully answers all questions.
-
-// Param:
-// name -> gets the name of the subject from the url (str)
-// video -> video provided from youtube (str)
-// videoId -> id of specific video; this is fetched using the name of the video (str)
-// matchingRow -> row that matches the name of the video (str)
-// allRows -> array of all the rows in the database (array)
-// transformedRows -> array of all the rows in the database, but with the data transformed (array)
-// TopicName -> name of the topic (str)
-// subjectname -> name of the subject (str)
-
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
-
 import Exercise from "../components/exercises.js";
+import { Card, CircularProgress } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-import {
-  Grid,
-  Paper,
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CircularProgress,
-} from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-
-const Video = () => {
-  const [video, setVideo] = useState(null);
+const CloudinaryPlayer = () => {
   const [allRows, setAllRows] = useState([]);
-  const { name } = useParams(); // Getting the 'name' from the URL
+  const [srcUrl, setSrcUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { name } = useParams(); // Destructure 'name' from useParams
 
   // Fetch data from database
   useEffect(() => {
@@ -45,7 +18,6 @@ const Video = () => {
           "http://localhost:8080/api/v2/topics/getAll"
         );
         const result = await response.json();
-
         const transformedRows = result.map((entry) => ({
           objID: entry._id,
           id: parseInt(entry._subjectID, 10),
@@ -53,63 +25,41 @@ const Video = () => {
           subjectname: entry.subjectName,
           videoID: entry.videoID,
         }));
-        setAllRows(transformedRows); // Populate rows with fetched data, all data
+        setAllRows(transformedRows);
       } catch (error) {
-        return (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "80vh",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        );
+        setError(error);
+        setLoading(true);
       }
     };
     fetchData();
   }, []);
 
+  // check if name from url match topic name from database
   useEffect(() => {
     const matchingRow = allRows.find((row) => row.TopicName === name);
     if (matchingRow) {
-      fetchVideo(matchingRow.videoID);
+      fetchVideo(matchingRow.TopicName);
     }
-  }, [allRows, name]); // Re-run the effect if 'name' and array allRows change
+  }, [allRows, name]);
 
-  // get video from youtube api
-  const fetchVideo = async (videoId) => {
+  const fetchVideo = async (topicName) => {
     try {
-      const response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyCwFCtsVRp1947x3ljK41KSinRFvnzwUlc`
-      );
-
-      setVideo(response.data.items[0]);
+      const newSrcUrl = `https://player.cloudinary.com/embed/?public_id=video/${topicName}&cloud_name=dalwgxr3j&source[info][title]=test&source[info][subtitle]=test&source[autoplayOnScroll]=false`;
+      setSrcUrl(newSrcUrl);
     } catch (error) {
       console.error("Error fetching video:", error);
     }
   };
 
-  // no video = infinite loading
-  if (!video) {
+  if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
+      <div>
         <CircularProgress />
       </div>
     );
-  }
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    // video player: positioning
     <div
       style={{
         display: "flex",
@@ -120,35 +70,32 @@ const Video = () => {
     >
       <Card
         style={{
-          width: "55%", // Adjust this for desired width
+          width: "55%",
         }}
       >
         <div
           style={{
             position: "relative",
-            paddingBottom: "56.25%", // 16:9 aspect ratio
+            paddingBottom: "56.25%",
             height: 0,
             overflow: "hidden",
           }}
         >
           <iframe
-            src={`https://www.youtube.com/embed/${video.id}`}
-            title={video.snippet.title}
-            frameBorder="0"
+            src={srcUrl}
+            width="640"
+            height="360"
+            style={{ height: "auto", width: "100%", aspectRatio: "640 / 360" }}
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
+            frameBorder="0"
+            title="Cloudinary Video Player"
           ></iframe>
         </div>
       </Card>
-     <Exercise />
+      <Exercise />
     </div>
   );
 };
 
-export default Video;
+export default CloudinaryPlayer;
