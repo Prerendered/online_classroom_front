@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Box, Button, Grid, TextField, Typography, Input } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams } from "react-router-dom";
 
 import "../App.css";
@@ -195,7 +195,7 @@ const UploadArea = () => {
             <Input
               type="file"
               id="fileInput"
-              inputProps={{ accept: ".mp4,.webm" }}
+              inputProps={{ accept: ".mp4,.webm,.mov" }}
               onChange={handleFileInputChange}
             />
           </Box>
