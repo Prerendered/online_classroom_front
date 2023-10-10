@@ -97,10 +97,12 @@ const UploadArea = () => {
       <Dialog
         open={errorDialogOpen}
         onClose={handleCloseErrorDialog}
-        sx={{ "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" }}}
+        sx={{
+          "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" },
+        }}
       >
         <DialogTitle>Error</DialogTitle>
-        <Typography variant="h6" sx={{ margin: 2}} align="center">
+        <Typography variant="h6" sx={{ margin: 2 }} align="center">
           {errorDialogMessage}
         </Typography>
         <DialogActions>

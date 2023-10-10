@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Exercise from "../components/exercises.js";
-import { Card, CircularProgress } from "@mui/material";
+import { Card, CircularProgress, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const CloudinaryPlayer = () => {
@@ -60,41 +60,65 @@ const CloudinaryPlayer = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "80vh",
-      }}
+    <Grid
+      container
+      sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
     >
-      <Card
-        style={{
-          width: "55%",
+      <Grid
+        item
+        xs={6}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "75%",
+          margin: "2%",
         }}
       >
-        <div
+        <Card
           style={{
-            position: "relative",
-            paddingBottom: "56.25%",
-            height: 0,
-            overflow: "hidden",
+            width: "100%",
           }}
         >
-          <iframe
-            src={srcUrl}
-            width="640"
-            height="360"
-            style={{ height: "auto", width: "100%", aspectRatio: "640 / 360" }}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowFullScreen
-            frameBorder="0"
-            title="Cloudinary Video Player"
-          ></iframe>
-        </div>
-      </Card>
-      <Exercise />
-    </div>
+          <div
+            style={{
+              position: "relative",
+              paddingBottom: "56.25%",
+              height: 0,
+              overflow: "hidden",
+            }}
+          >
+            <iframe
+              src={srcUrl}
+              width="640"
+              height="360"
+              style={{
+                height: "auto",
+                width: "100%",
+                aspectRatio: "640 / 360",
+              }}
+              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+              allowFullScreen
+              frameBorder="0"
+              title="Cloudinary Video Player"
+            ></iframe>
+          </div>
+        </Card>
+      </Grid>
+      <Grid
+        item
+        xs={4}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <Exercise />
+      </Grid>
+    </Grid>
   );
 };
 
