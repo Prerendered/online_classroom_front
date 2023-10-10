@@ -10,6 +10,9 @@ import "../App.css";
 
 const UploadArea = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [titleDialogOpen, setTitleDialogOpen] = useState(false);
+  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [errorDialogMessage, setErrorDialogMessage] = useState("");
   const [file, setFile] = useState(null);
   const [videoName, setVideoName] = useState("");
   const [videoDescription, setVideoDescription] = useState("");
@@ -33,14 +36,24 @@ const UploadArea = () => {
     setDialogOpen(false);
   };
 
+  const handleTitleDialogOpen = () => {
+    setTitleDialogOpen(false);
+  };
+
+  const handleCloseErrorDialog = () => {
+    setErrorDialogOpen(false);
+  };
+
   const handleUpload = async () => {
     if (!file) {
-      console.error("No file selected");
+      setErrorDialogMessage("No file selected");
+      setErrorDialogOpen(true);
       return;
     }
 
     if (videoName.trim() === "") {
-      console.error("Title is required");
+      setErrorDialogMessage("Title is required");
+      setErrorDialogOpen(true);
       return;
     }
 
@@ -70,6 +83,21 @@ const UploadArea = () => {
         <DialogTitle>Video uploaded successfully</DialogTitle>
         <DialogActions>
           <Button onClick={handleCloseDialog}>OK</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={titleDialogOpen} onClose={handleTitleDialogOpen}>
+        <DialogTitle>Title added successfully</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>OK</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={errorDialogOpen} onClose={handleCloseErrorDialog}>
+        <DialogTitle>Error</DialogTitle>
+        <Typography variant="body2" sx={{ margin: 2 }}>
+          {errorDialogMessage}
+        </Typography>
+        <DialogActions>
+          <Button onClick={handleCloseErrorDialog}>OK</Button>
         </DialogActions>
       </Dialog>
       <Grid
@@ -106,21 +134,6 @@ const UploadArea = () => {
             value={videoDescription}
             onChange={(e) => setVideoDescription(e.target.value)}
           />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              bgcolor: "black",
-              color: "white",
-              "&:hover": { bgcolor: "#00ADB5", color: "white" },
-            }}
-          >
-            Submit
-          </Button>
         </div>
       </Grid>
       <Grid
