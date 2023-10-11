@@ -1,11 +1,17 @@
-import './student_dashboard.css';
-import Navbar from '../components/navbar.js';
-import SubjectsTable  from '../components/teacherSubjectTable.js';
-import BasicDateCalendar from '../components/calendar.js';
-import QuoteOfTheDay from '../components/quote';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { useParams, useNavigate } from "react-router-dom"; // Import useParams to get name from url
+import "./teacher_dashboard.css";
+import Navbar from "../components/navbar.js";
+import SubjectsTable from "../components/teacherSubjectTable.js";
+import BasicDateCalendar from "../components/calendar.js";
+import QuoteOfTheDay from "../components/quote";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Roboto Condensed', sans-serif",
+  },
+});
 
 //Welcome message
 function Welcome() {
@@ -18,24 +24,24 @@ function Welcome() {
   );
 }
 
-function studentdashboard() {
-  
+function teacherdashboard() {
   return (
-    <div className="App">
-      <Navbar />
-      <Welcome />
-      <Grid container spacing={10} padding={5}>
-        <Grid item xs={7}>
-          <SubjectsTable />
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Navbar />
+        <Welcome />
+        <Grid container spacing={10} padding={5}>
+          <Grid item xs={7}>
+            <SubjectsTable />
+          </Grid>
+          <Grid item xs={4}>
+            <BasicDateCalendar />
+            <QuoteOfTheDay />
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <BasicDateCalendar />
-          <QuoteOfTheDay />
-        </Grid>
-          
-      </Grid>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default studentdashboard;
+export default teacherdashboard;

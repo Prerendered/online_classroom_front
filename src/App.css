@@ -1,9 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap");
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 body {
@@ -14,11 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #EEEEEE;
-  font-family: Montserrat, sans-serif;
+  background-color: #eeeeee;
+  font-family: Roboto Condensed, sans-serif;
   overflow-y: auto;
 }
-
-
-
-

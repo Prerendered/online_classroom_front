@@ -6,6 +6,13 @@ import StudentCalendar from "../components/studentCalendar.js";
 import QuoteOfTheDay from "../components/quote";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Roboto Condensed', sans-serif",
+  },
+});
 
 //Welcome message
 function Welcome() {
@@ -20,19 +27,21 @@ function Welcome() {
 
 function studentdashboard() {
   return (
-    <div className="App">
-      <Navbar />
-      <Welcome />
-      <Grid container spacing={10} padding={5}>
-        <Grid item xs={7}>
-          <SubjectsTable />
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Navbar />
+        <Welcome />
+        <Grid container spacing={10} padding={5}>
+          <Grid item xs={7}>
+            <SubjectsTable />
+          </Grid>
+          <Grid item xs={4}>
+            <StudentCalendar />
+            <QuoteOfTheDay />
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <StudentCalendar />
-          <QuoteOfTheDay />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 

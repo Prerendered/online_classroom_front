@@ -6,8 +6,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 // import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useParams } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "../App.css";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Roboto Condensed', sans-serif",
+  },
+});
 
 const UploadArea = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -78,101 +85,91 @@ const UploadArea = () => {
   };
 
   return (
-    <Grid
-      container
-      sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
-    >
-      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>Video uploaded successfully</DialogTitle>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>OK</Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog open={titleDialogOpen} onClose={handleTitleDialogOpen}>
-        <DialogTitle>Title added successfully</DialogTitle>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>OK</Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        open={errorDialogOpen}
-        onClose={handleCloseErrorDialog}
-        sx={{
-          "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" },
-        }}
-      >
-        <DialogTitle>Error</DialogTitle>
-        <Typography variant="h6" sx={{ margin: 2 }} align="center">
-          {errorDialogMessage}
-        </Typography>
-        <DialogActions>
-          <Button onClick={handleCloseErrorDialog}>OK</Button>
-        </DialogActions>
-      </Dialog>
+    <ThemeProvider theme={theme}>
       <Grid
-        item
-        xs
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "75%",
-          margin: "2%",
-        }}
+        container
+        sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
       >
-        <div>
-          <Typography gutterBottom variant="h4" component="div" align="left">
-            Topic name: {name}
+        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+          <DialogTitle>Video uploaded successfully</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={titleDialogOpen} onClose={handleTitleDialogOpen}>
+          <DialogTitle>Title added successfully</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={errorDialogOpen}
+          onClose={handleCloseErrorDialog}
+          sx={{
+            "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" },
+          }}
+        >
+          <DialogTitle>Error</DialogTitle>
+          <Typography variant="h6" sx={{ margin: 2 }} align="center">
+            {errorDialogMessage}
           </Typography>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="vid_title"
-            label="Video Title"
-            name="vid_title"
-            value={videoName}
-            onChange={(e) => setVideoName(e.target.value)}
-            autoFocus
-          />
-
-          <TextField
-            id="vid_desc"
-            label="Video description"
-            multiline
-            fullWidth
-            rows={4}
-            variant="filled"
-            value={videoDescription}
-            onChange={(e) => setVideoDescription(e.target.value)}
-          />
-        </div>
-      </Grid>
-      <Grid
-        item
-        xs={8}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-        }}
-      >
-        <Box
-          className="dropzone-container"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
+          <DialogActions>
+            <Button onClick={handleCloseErrorDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
+        <Grid
+          item
+          xs
           sx={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             justifyContent: "center",
-            margin: 10,
+            alignItems: "center",
+            height: "75%",
+            margin: "2%",
+          }}
+        >
+          <div>
+            <Typography gutterBottom variant="h4" component="div" align="left">
+              Topic name: {name}
+            </Typography>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="vid_title"
+              label="Video Title"
+              name="vid_title"
+              value={videoName}
+              onChange={(e) => setVideoName(e.target.value)}
+              autoFocus
+            />
+
+            <TextField
+              id="vid_desc"
+              label="Video description"
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              value={videoDescription}
+              onChange={(e) => setVideoDescription(e.target.value)}
+            />
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={8}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
           }}
         >
           <Box
-            className="drop-zone"
-            epic
+            className="dropzone-container"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -181,42 +178,54 @@ const UploadArea = () => {
               margin: 10,
             }}
           >
-            {file ? (
-              <Typography className="drop-custom0">
-                File selected: {file.name}
-              </Typography>
-            ) : (
-              <Typography className="drop-custom">
-                Drag and drop file here
-                <Typography className="drop-custom2">or</Typography>
-              </Typography>
-            )}
-
-            <Input
-              type="file"
-              id="fileInput"
-              inputProps={{ accept: ".mp4,.webm,.mov" }}
-              onChange={handleFileInputChange}
-            />
-          </Box>
-          {/* Upload button */}
-          <Box className="upload-button-container" sx={{ margin: 10 }}>
-            <Button
-              variant="contained"
-              className="upload-button"
+            <Box
+              className="drop-zone"
+              epic
               sx={{
-                bgcolor: "black",
-                color: "white",
-                "&:hover": { bgcolor: "#00ADB5", color: "white" },
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: 10,
               }}
-              onClick={handleUpload}
             >
-              Upload Video
-            </Button>
+              {file ? (
+                <Typography className="drop-custom0">
+                  File selected: {file.name}
+                </Typography>
+              ) : (
+                <Typography className="drop-custom">
+                  Drag and drop file here
+                  <Typography className="drop-custom2">or</Typography>
+                </Typography>
+              )}
+
+              <Input
+                type="file"
+                id="fileInput"
+                inputProps={{ accept: ".mp4,.webm,.mov" }}
+                onChange={handleFileInputChange}
+              />
+            </Box>
+            {/* Upload button */}
+            <Box className="upload-button-container" sx={{ margin: 10 }}>
+              <Button
+                variant="contained"
+                className="upload-button"
+                sx={{
+                  bgcolor: "black",
+                  color: "white",
+                  "&:hover": { bgcolor: "#00ADB5", color: "white" },
+                }}
+                onClick={handleUpload}
+              >
+                Upload Video
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </Grid>
       </Grid>
-    </Grid>
+    </ThemeProvider>
   );
 };
 
