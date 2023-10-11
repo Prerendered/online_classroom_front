@@ -69,7 +69,7 @@ const ViewTopic = ({ subjectName }) => {
   // Display topic name based on subject name into the table
   if (subjectName) {
     rows = allRows.filter((item) => item.subjectname === subjectName);
-    completedRows = rows.filter((item) => item.completion === "True");
+    completedRows = rows.filter((item) => item.completion.toLowerCase() === "true");
   }
 
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ const ViewTopic = ({ subjectName }) => {
                   disabled={
                     completedRows.some(
                       (completedRow) => completedRow.name === row.name
-                    ) && row.completion === "True"
+                    ) && row.completion.toLowerCase() === "true"
                   } // this will disable the button if the topic is completed/viewed
                   onClick={() => handleClickOpen(row.name)}
                 >
