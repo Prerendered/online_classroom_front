@@ -8,7 +8,7 @@ const CloudinaryPlayer = () => {
   const [srcUrl, setSrcUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { name } = useParams(); // Destructure 'name' from useParams
+  const { name } = useParams(); 
 
   // Fetch data from database
   useEffect(() => {

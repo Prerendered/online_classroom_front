@@ -30,80 +30,28 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 const ViewTopic = ({ subjectName }) => {
-  // Initialize rows as an empty array
   const [allRows, setAllRows] = useState([]);
-  const [isChecked, setIsChecked] = useState(false); // for completed/not completed switch
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
-  const { name } = useParams(); // Getting the 'name' from the URL
+  const { name } = useParams();
 
-  // take the name of the subject and passes it as the url. used to view videos in next page
   const handleClickOpen = (name) => {
-    navigate(`/upload-videos/${name}`);    
+    navigate(`/upload-videos/${name}`);
   };
 
-  // Function to toggle the switch state
-  const handleSwitchChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
+  const handleSwitchChange = async (event, id) => {
+    const isChecked = event.target.checked;
+    const matchingRow = allRows.find((row) => row.id === id);
+    if (matchingRow) {
+      const data = {
+        SubjectName: matchingRow.subjectname,
+        TopicName: matchingRow.name,
+        TopicCompletion: isChecked,
+      };
 
-  // Fetch data from database to populate topics table
-  useEffect(() => {
-    const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/v2/topics/getAll"
-        );
-        const result = await response.json();
-
-        const transformedRows = result.map((entry) => ({
-          id: parseInt(entry._subjectID, 10),
-          name: entry.topicName,
-          subjectname: entry.subjectName,
-          completion: entry.topicCompletion,
-          checked: entry.topicCompletion === "True", // Assume topicCompletion is a string
-        }));
-        setAllRows(transformedRows); // Populate rows with fetched data, all data
-      } catch (error) {
-        return (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "80vh",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        );
-      }
-    };
-    fetchData();
-  }, []);
-
-  let rows; //initialize row used to filter data
-  let completedRows; //initialize row used to filter data if topic is completed
-
-  // Display topic name based on subject name into the table
-  if (subjectName) {
-    rows = allRows.filter((item) => item.subjectname === subjectName);
-    completedRows = rows.filter((item) => item.completion === "True");
-  }
-
-  // Function to do change completion to true when the switch is checked
-  const switchAction = async () => {
-    if (isChecked) {
-      const matchingRow = allRows.find((row) => row.TopicName === name);
-
-      if (matchingRow) {
-        const id = matchingRow.objID;
-        const data = {
-          SubjectName: matchingRow.subjectname,
-          TopicName: matchingRow.TopicName,
-          videoID: matchingRow.videoID,
-          topicCompletion: "True",
-        };
-        axios
+        await axios
           .put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
           .then((response) => {
             console.log(response);
@@ -111,15 +59,58 @@ const ViewTopic = ({ subjectName }) => {
           .catch((error) => {
             console.log(error);
           });
+
+        // Update the frontend state
+        const updatedRows = allRows.map((row) =>
+          row.id === id ? { ...row, TopicCompletion: isChecked } : row
+        );
+        setAllRows(updatedRows);
+      } catch (error) {
+        console.error("API Error:", error);
       }
     }
-    return false;
   };
 
   useEffect(() => {
-    switchAction();
-  }, [isChecked]); // Dependency array to watch for changes in allRows
-  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/api/v2/topics/getAll"
+        );
+        const transformedRows = response.data.map((entry) => ({
+          id: entry._id,
+          name: entry.topicName,
+          subjectname: entry.subjectName,
+          TopicCompletion: entry.topicCompletion,
+        }));
+        console.log("fetching data", transformedRows);
+        setAllRows(transformedRows);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (error) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  const rows = subjectName
+    ? allRows.filter((item) => item.subjectname === subjectName)
+    : [];
+
   return (
     <TableContainer
       component={Paper}
@@ -132,14 +123,9 @@ const ViewTopic = ({ subjectName }) => {
       <Table>
         <TableBody>
           {rows.map((row) => (
-            <TableRow
-              key={row.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
+            <TableRow key={row.id}>
               <TableCell
-                style={{
-                  fontSize: "1rem",
-                }}
+                style={{ fontSize: "1rem" }}
                 component="th"
                 scope="row"
               >
@@ -149,10 +135,11 @@ const ViewTopic = ({ subjectName }) => {
                 <FormControlLabel
                   control={
                     <Switch
-                      defaultChecked={row.checked}
-                      checked={row.checked}
-                      onChange={ handleSwitchChange }
                       size="small"
+                      checked={
+                        String(row.TopicCompletion).toLowerCase() === "true"
+                      }
+                      onChange={(event) => handleSwitchChange(event, row.id)}
                     />
                   }
                   label="Completed"
@@ -171,7 +158,6 @@ const ViewTopic = ({ subjectName }) => {
     </TableContainer>
   );
 };
-
 export default ViewTopic;
 
 // Progress bar
