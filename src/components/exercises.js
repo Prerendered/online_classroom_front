@@ -189,7 +189,7 @@ const Exercise = () => {
       paddingLeft={6}
     >
       {/* Exercise Box */}
-      <Grid item xs={12} md={9} paddingRight={1}>
+      <Grid item xs={12} md={12} paddingRight={1}>
         <Paper elevation={3} style={{ padding: "10%", paddingLeft: "10%" }}>
           <Typography variant="h6">{topicName} Questions</Typography>
           {questions.map((question, index) => (
@@ -200,7 +200,7 @@ const Exercise = () => {
               ></Typography>
               <TextField
                 name={`question-${index}`}
-                label={`Answer for ${question}`}
+                label={`${question}`}
                 variant="outlined"
                 margin="normal"
                 fullWidth
