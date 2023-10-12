@@ -22,16 +22,17 @@ import TextField from "@mui/material/TextField";
 import dayjs from "dayjs";
 
 export default function TeacherCalendar() {
+  const currentDate = new Date();
   const [calendar, setCalendarData] = useState([]);
   const [dates, setdates] = useState([]);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [messageIDs, setID] = useState([]);
   const [messageEntry, setMessageEntry] = useState({
-    date: dayjs("2023-10-2"),
+    date: dayjs(currentDate),
     message: "",
   });
-  const [selectedDate, setSelectedDate] = useState(dayjs("2023-10-2"));
+  const [selectedDate, setSelectedDate] = useState(dayjs(currentDate));
 
   const fetchCalendarDays = async () => {
     try {
