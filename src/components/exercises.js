@@ -49,10 +49,10 @@ const Exercise = () => {
         Status: entry.completed,
       }));
 
-      // Extract all questions and put them in an array
-      const allQuestions = transformedRows
-        .filter((row) => row.TopicName === "Math")
-        .map((row) => row.Question);
+      // Extract all questions from the transformed rows that has the same lable as the video title (name)
+        const allQuestions = transformedRows
+            .filter((row) => row.TopicName === name)
+            .map((row) => row.Question);
 
       setQuestions(allQuestions);
 
@@ -189,7 +189,7 @@ const Exercise = () => {
       paddingLeft={6}
     >
       {/* Exercise Box */}
-      <Grid item xs={12} md={4} paddingRight={1}>
+      <Grid item xs={12} md={9} paddingRight={1}>
         <Paper elevation={3} style={{ padding: "10%", paddingLeft: "10%" }}>
           <Typography variant="h6">{topicName} Questions</Typography>
           {questions.map((question, index) => (
