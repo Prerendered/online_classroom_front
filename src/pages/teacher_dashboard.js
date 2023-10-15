@@ -1,7 +1,7 @@
 import "./teacher_dashboard.css";
 import Navbar from "../components/navbar.js";
 import SubjectsTable from "../components/teacherSubjectTable.js";
-import BasicDateCalendar from "../components/calendar.js";
+import TeacherCalendar from "../components/teacherCalendar";
 import QuoteOfTheDay from "../components/quote";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -35,7 +35,7 @@ function teacherdashboard() {
             <SubjectsTable />
           </Grid>
           <Grid item xs={4}>
-            <BasicDateCalendar />
+            <TeacherCalendar />
             <QuoteOfTheDay />
           </Grid>
         </Grid>

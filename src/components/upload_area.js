@@ -270,7 +270,7 @@ const UploadArea = () => {
               }}
           >
             <div>
-              <Typography gutterBottom variant="h4" component="div" align="left">
+              <Typography gutterBottom variant="h4" component="div" align="left" fontWeight={'bold'} fontSize={50}>
                 Topic name: {name}
               </Typography>
               <TextField
@@ -318,6 +318,9 @@ const UploadArea = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   margin: 8,
+                  borderRadius:'20px',
+                  borderColor:'black',
+                  borderWidth:"2px"
                 }}
             >
               <Box
@@ -363,7 +366,21 @@ const UploadArea = () => {
                 >
                   Upload Video
                 </Button>
-              </Box>
+                <Button
+                  variant="contained"
+                  className="upload-button"
+                  sx={{
+                    bgcolor: "black",
+                    color: "white",
+                    "&:hover": { bgcolor: "#00ADB5", color: "white" },
+                    margin: "10px",
+                    marginLeft: "30px"
+          
+                  }}
+                  onClick={handleExerciseDialogOpen}
+              >
+                Submit Exercise
+              </Button>
               <Button
 
                   variant="contained"
@@ -372,7 +389,7 @@ const UploadArea = () => {
                     bgcolor: "black",
                     color: "white",
                     "&:hover": { bgcolor: "#00ADB5", color: "white" },
-                    margin: "10px",
+                    
                     minWidth: 0, // Set the minimum width to zero to make the icon button small
                   }}
                   onClick={handleInfoDialogOpen}
@@ -381,21 +398,8 @@ const UploadArea = () => {
 
               </Button>
 
-              <Button
-                  variant="contained"
-                  className="upload-button"
-                  sx={{
-                    bgcolor: "black",
-                    color: "white",
-                    "&:hover": { bgcolor: "#00ADB5", color: "white" },
-                    margin: "10px",
-                    marginBottom: "20px",
-                  }}
-                  onClick={handleExerciseDialogOpen}
-              >
-                Submit Exercise
-              </Button>
-
+              
+              </Box>
             </Box>
           </Grid>
         </Grid>
