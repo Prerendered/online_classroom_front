@@ -200,7 +200,7 @@ const StudentPage = () => {
                         variant="contained"
                         color="primary"
                         onClick={handleOpenCategoryDialog}
-                        style={{ marginBottom: '2px' }}
+                        style={{ marginBottom: '4px' }}
                     >
                         Sort by Category
                     </Button>
