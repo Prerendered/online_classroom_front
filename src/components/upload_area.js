@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import DialogContent from "@mui/material/DialogContent";
 
 import "../App.css";
@@ -36,12 +36,12 @@ const UploadArea = () => {
     { question: "", answer: "" },
   ]);
 
-  const [exerciseAnswers , setExerciseAnswers] = useState([
-    { answer: ""},
-    { answer: ""},
-    { answer: ""},
-    { answer: ""},
-    { answer: ""},
+  const [exerciseAnswers, setExerciseAnswers] = useState([
+    { answer: "" },
+    { answer: "" },
+    { answer: "" },
+    { answer: "" },
+    { answer: "" },
   ]);
 
   const [infoDialogOpen, setInfoDialogOpen] = useState(false);
@@ -79,7 +79,7 @@ const UploadArea = () => {
 
   const handleExerciseDialogClose = () => {
     setExerciseDialogOpen(false);
-  }
+  };
 
   const handleInfoDialogOpen = () => {
     setInfoDialogOpen(true);
@@ -128,7 +128,10 @@ const UploadArea = () => {
     try {
       // Send a POST request for each exercise object in the array
       for (const exercise of exerciseData) {
-        const response = await axios.post("http://localhost:8080/api/exercises/save", exercise);
+        const response = await axios.post(
+          "http://localhost:8080/api/exercises/save",
+          exercise
+        );
 
         if (response.status === 200) {
           // Exercise saved successfully
@@ -143,7 +146,6 @@ const UploadArea = () => {
       console.error("Error saving exercise:", error);
     }
   };
-
 
   const handleUpload = async () => {
     if (!file) {
@@ -166,8 +168,8 @@ const UploadArea = () => {
 
     try {
       const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/dalwgxr3j/video/upload`, // replace 'your_cloud_name' with your Cloudinary cloud name
-          formData
+        `https://api.cloudinary.com/v1_1/dalwgxr3j/video/upload`, // replace 'your_cloud_name' with your Cloudinary cloud name
+        formData
       );
       console.log("Video uploaded successfully:", response.data);
       setDialogOpen(true);
@@ -177,233 +179,251 @@ const UploadArea = () => {
   };
 
   return (
-      <ThemeProvider theme={theme}>
-        <Grid
-            container
-            sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
+    <ThemeProvider theme={theme}>
+      <Grid
+        container
+        sx={{ height: "80vh", justifyContent: "center", alignItems: "center" }}
+      >
+        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+          <DialogTitle>Video uploaded successfully</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={titleDialogOpen} onClose={handleTitleDialogOpen}>
+          <DialogTitle>Title added successfully</DialogTitle>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={errorDialogOpen}
+          onClose={handleCloseErrorDialog}
+          sx={{
+            "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" },
+          }}
         >
-          <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-            <DialogTitle>Video uploaded successfully</DialogTitle>
-            <DialogActions>
-              <Button onClick={handleCloseDialog}>OK</Button>
-            </DialogActions>
-          </Dialog>
-          <Dialog open={titleDialogOpen} onClose={handleTitleDialogOpen}>
-            <DialogTitle>Title added successfully</DialogTitle>
-            <DialogActions>
-              <Button onClick={handleCloseDialog}>OK</Button>
-            </DialogActions>
-          </Dialog>
-          <Dialog
-              open={errorDialogOpen}
-              onClose={handleCloseErrorDialog}
-              sx={{
-                "& .MuiPaper-root": { backgroundColor: "#EEEEEE", width: "25%" },
-              }}
-          >
-            <DialogTitle>Error</DialogTitle>
-            <Typography variant="h6" sx={{ margin: 2 }} align="center">
-              {errorDialogMessage}
-            </Typography>
-            <DialogActions>
-              <Button onClick={handleCloseErrorDialog}>OK</Button>
-            </DialogActions>
-          </Dialog>
+          <DialogTitle>Error</DialogTitle>
+          <Typography variant="h6" sx={{ margin: 2 }} align="center">
+            {errorDialogMessage}
+          </Typography>
+          <DialogActions>
+            <Button onClick={handleCloseErrorDialog}>OK</Button>
+          </DialogActions>
+        </Dialog>
 
-          <Dialog open={exerciseDialogOpen} onClose={handleExerciseDialogClose} sx={{ width: "50%" }}>
-            <DialogTitle>Submit Exercise</DialogTitle>
-            {exerciseQuestions.map((question, index) => (
-                <div key={index} sx={{ margin: "2px" }}>
-                  <Typography variant="body1"  sx={{ marginLeft: "2%", marginRight: "2%" }} ></Typography>
-                  <TextField
-                      name={`question-${index}`}
-                      label={`Question ${index + 1}`}
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      onChange={(event) => handleQuestionChange(index, event, "question")}
-                      value={question.question}
-                      sx={{ margin: "2px" }}
-                  />
-                  <TextField
-                      name={`answer-${index}`}
-                      label={`Answer for Question ${index + 1}`}
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      sx={{ margin: "3px" }}
-                      onChange={(event) => handleAnswerChange(index, event, "answer")}
-                      value={exerciseAnswers[index].answer}
-                  />
-                </div>
-            ))}
-            <DialogActions>
-              <Button onClick={handleExerciseDialogClose}>Cancel</Button>
-              <Button onClick={handleExerciseUpload}>Confirm</Button>
-            </DialogActions>
-          </Dialog>
-
-          <Dialog open={infoDialogOpen} onClose={handleInfoDialogClose}>
-            <DialogTitle>Exercise Submission Instructions</DialogTitle>
-            <Typography variant="body1" sx={{ margin: "16px" }}>
-              Here are the instructions for submitting the exercise:
-              <ol>
-                <li>Upload 5 questions and provide one answer for each question.</li>
-                <li>If a question has a static answer, you can use 'true' or 'false' as the answer.</li>
-                <li>Make sure that all fields are filled for each question and answer.</li>
-              </ol>
-            </Typography>
-            <DialogActions>
-              <Button onClick={handleInfoDialogClose}>OK</Button>
-            </DialogActions>
-          </Dialog>
-
-          <Grid
-              item
-              xs
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "75%",
-                margin: "2%",
-              }}
-          >
-            <div>
-              <Typography gutterBottom variant="h4" component="div" align="left" fontWeight={'bold'} fontSize={50}>
-                Topic name: {name}
-              </Typography>
+        <Dialog
+          open={exerciseDialogOpen}
+          onClose={handleExerciseDialogClose}
+          sx={{ width: "50%" }}
+        >
+          <DialogTitle>Submit Exercise</DialogTitle>
+          {exerciseQuestions.map((question, index) => (
+            <div key={index} sx={{ margin: "2px" }}>
+              <Typography
+                variant="body1"
+                sx={{ marginLeft: "2%", marginRight: "2%" }}
+              ></Typography>
               <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="vid_title"
-                  label="Video Title"
-                  name="vid_title"
-                  value={videoName}
-                  onChange={(e) => setVideoName(e.target.value)}
-                  autoFocus
+                name={`question-${index}`}
+                label={`Question ${index + 1}`}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                onChange={(event) =>
+                  handleQuestionChange(index, event, "question")
+                }
+                value={question.question}
+                sx={{ margin: "2px" }}
               />
-
               <TextField
-                  id="vid_desc"
-                  label="Video description"
-                  multiline
-                  fullWidth
-                  rows={4}
-                  variant="filled"
-                  value={videoDescription}
-                  onChange={(e) => setVideoDescription(e.target.value)}
+                name={`answer-${index}`}
+                label={`Answer for Question ${index + 1}`}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                sx={{ margin: "3px" }}
+                onChange={(event) => handleAnswerChange(index, event, "answer")}
+                value={exerciseAnswers[index].answer}
               />
             </div>
-          </Grid>
-          <Grid
-              item
-              xs={8}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
+          ))}
+          <DialogActions>
+            <Button onClick={handleExerciseDialogClose}>Cancel</Button>
+            <Button onClick={handleExerciseUpload}>Confirm</Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog open={infoDialogOpen} onClose={handleInfoDialogClose}>
+          <DialogTitle>Exercise Submission Instructions</DialogTitle>
+          <Typography variant="body1" sx={{ margin: "16px" }}>
+            Here are the instructions for submitting the exercise:
+            <ol>
+              <li>
+                Upload 5 questions and provide one answer for each question.
+              </li>
+              <li>
+                If a question has a static answer, you can use 'true' or 'false'
+                as the answer.
+              </li>
+              <li>
+                Make sure that all fields are filled for each question and
+                answer.
+              </li>
+            </ol>
+          </Typography>
+          <DialogActions>
+            <Button onClick={handleInfoDialogClose}>OK</Button>
+          </DialogActions>
+        </Dialog>
+
+        <Grid
+          item
+          xs
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "75%",
+            margin: "2%",
+          }}
+        >
+          <div>
+            <Typography
+              gutterBottom
+              variant="h4"
+              component="div"
+              align="left"
+              fontWeight={"bold"}
+              fontSize={50}
+            >
+              Topic name: {name}
+            </Typography>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="vid_title"
+              label="Video Title"
+              name="vid_title"
+              value={videoName}
+              onChange={(e) => setVideoName(e.target.value)}
+              autoFocus
+            />
+
+            <TextField
+              id="vid_desc"
+              label="Video description"
+              multiline
+              fullWidth
+              rows={4}
+              variant="filled"
+              value={videoDescription}
+              onChange={(e) => setVideoDescription(e.target.value)}
+            />
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={8}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <Box
+            className="dropzone-container"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 8,
+              borderRadius: "20px",
+              borderColor: "black",
+              borderWidth: "2px",
+            }}
           >
             <Box
-                className="dropzone-container"
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                sx={{
-                  display: "flex",
-                  flexDirection
-                      : "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: 8,
-                  borderRadius:'20px',
-                  borderColor:'black',
-                  borderWidth:"2px"
-                }}
+              className="drop-zone"
+              epic
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: 10,
+              }}
             >
-              <Box
-                  className="drop-zone"
-                  epic
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: 10,
-                  }}
-              >
-                {file ? (
-                    <Typography className="drop-custom0">
-                      File selected: {file.name}
-                    </Typography>
-                ) : (
-                    <Typography className="drop-custom">
-                      Drag and drop file here
-                      <Typography className="drop-custom2">or</Typography>
-                    </Typography>
-                )}
+              {file ? (
+                <Typography className="drop-custom0">
+                  File selected: {file.name}
+                </Typography>
+              ) : (
+                <Typography className="drop-custom">
+                  Drag and drop file here
+                  <Typography className="drop-custom2">or</Typography>
+                </Typography>
+              )}
 
-                <Input
-                    type="file"
-                    id="fileInput"
-                    inputProps={{ accept: ".mp4,.webm,.mov" }}
-                    onChange={handleFileInputChange}
-                />
-              </Box>
-              {/* Upload button */}
-              <Box className="upload-button-container" sx={{ margin: 4 }}>
-                <Button
-                    variant="contained"
-                    className="upload-button"
-                    sx={{
-                      bgcolor: "black",
-                      color: "white",
-                      "&:hover": { bgcolor: "#00ADB5", color: "white" },
-                    }}
-                    onClick={handleUpload}
-                >
-                  Upload Video
-                </Button>
-                <Button
-                  variant="contained"
-                  className="upload-button"
-                  sx={{
-                    bgcolor: "black",
-                    color: "white",
-                    "&:hover": { bgcolor: "#00ADB5", color: "white" },
-                    margin: "10px",
-                    marginLeft: "30px"
-          
-                  }}
-                  onClick={handleExerciseDialogOpen}
+              <Input
+                type="file"
+                id="fileInput"
+                inputProps={{ accept: ".mp4,.webm,.mov" }}
+                onChange={handleFileInputChange}
+              />
+            </Box>
+            {/* Upload button */}
+            <Box className="upload-button-container" sx={{ margin: 4 }}>
+              <Button
+                variant="contained"
+                className="upload-button"
+                sx={{
+                  bgcolor: "black",
+                  color: "white",
+                  "&:hover": { bgcolor: "#00ADB5", color: "white" },
+                }}
+                onClick={handleUpload}
+              >
+                Upload Video
+              </Button>
+              <Button
+                variant="contained"
+                className="upload-button"
+                sx={{
+                  bgcolor: "black",
+                  color: "white",
+                  "&:hover": { bgcolor: "#00ADB5", color: "white" },
+                  margin: "10px",
+                  marginLeft: "30px",
+                }}
+                onClick={handleExerciseDialogOpen}
               >
                 Submit Exercise
               </Button>
               <Button
+                variant="contained"
+                className="info-button"
+                sx={{
+                  bgcolor: "black",
+                  color: "white",
+                  "&:hover": { bgcolor: "#00ADB5", color: "white" },
 
-                  variant="contained"
-                  className="info-button"
-                  sx={{
-                    bgcolor: "black",
-                    color: "white",
-                    "&:hover": { bgcolor: "#00ADB5", color: "white" },
-                    
-                    minWidth: 0, // Set the minimum width to zero to make the icon button small
-                  }}
-                  onClick={handleInfoDialogOpen}
+                  minWidth: 0, // Set the minimum width to zero to make the icon button small
+                }}
+                onClick={handleInfoDialogOpen}
               >
                 <InfoIcon />
-
               </Button>
-
-              
-              </Box>
             </Box>
-          </Grid>
+          </Box>
         </Grid>
-      </ThemeProvider>
+      </Grid>
+    </ThemeProvider>
   );
 };
 
