@@ -47,14 +47,6 @@ const StudentPage = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
 
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
@@ -228,15 +220,7 @@ const StudentPage = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[10, 25, 100]}
-                        component="div"
-                        count={questions.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
+
                 </div>
                 <ForumIcon sx={{ fontSize: 48, color: 'primary' }} />
                 <h2>Ask a Question</h2>
