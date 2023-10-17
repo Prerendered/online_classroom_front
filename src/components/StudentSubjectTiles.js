@@ -61,7 +61,14 @@ const SubjectsTable = () => {
     >
       {rows.map((row) => (
         <Grid item xs={12} sm={6} md={4} key={row.id}>
-          <Card style={{ width: "300px", height: "300px", borderRadius: 0, boxShadow: 'none' }}>
+          <Card
+            style={{
+              width: "300px",
+              height: "300px",
+              borderRadius: 0,
+              boxShadow: "none",
+            }}
+          >
             <CardActionArea
               onClick={() => handleClickOpen(row.name)}
               style={{ height: "100%" }}
