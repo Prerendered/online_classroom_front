@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button"; // Import Button
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import SubjectTiles from "../components/subjectTiles.js";
+
 const theme = createTheme({
   typography: {
     fontFamily: "'Roboto Condensed', sans-serif",
@@ -64,20 +66,28 @@ function studentdashboard() {
       <Navbar />
       <div className="App">
         <FullScreenWelcome onButtonClick={handleButtonClick} />
-        <div ref={dashboardRef}>
-          {" "}
+        <div ref={dashboardRef} style={{ height: "100vh" }}>
           {/* Set the reference here */}
           <Grid
             container
-            spacing={10}
-            padding={5}
-            style={{ marginTop: "5%", marginBottom: "12%" }}
+            style={{ height: "100%", padding: "0 10%" }}
+            justifyContent="center"
+            alignItems="center"
           >
-            <Grid item xs={7}>
-              <SubjectsTable />
-            </Grid>
-            <Grid item xs={4}>
+            <SubjectTiles />
+          </Grid>
+        </div>
+        <div style={{ height: "100vh", padding: "10%" }}>
+          <Grid
+            container
+            spacing={10}
+            direction="row"
+            style={{ height: "100%" }}
+          >
+            <Grid item xs={12} md={6}>
               <StudentCalendar />
+            </Grid>
+            <Grid item xs={12} md={6}>
               <QuoteOfTheDay />
             </Grid>
           </Grid>

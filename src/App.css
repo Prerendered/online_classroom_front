@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #EAD7BB;
+  background-color: #EEEEEE;
   font-family: Roboto Condensed, sans-serif;
   overflow-y: auto;
 }

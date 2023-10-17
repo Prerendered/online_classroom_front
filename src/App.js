@@ -1,3 +1,5 @@
+import './styles.css';
+
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import ViewVideos from './pages/viewvideos.js';

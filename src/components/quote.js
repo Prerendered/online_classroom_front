@@ -32,7 +32,7 @@ const QuoteOfTheDay = () => {
   }, []);
 
   return (
-    <Box marginY={5}>
+    <Box>
       <Paper elevation={4}>
         <Box padding={1}>
           <Typography
@@ -40,8 +40,6 @@ const QuoteOfTheDay = () => {
             component="h5"
             align="left"
             fontWeight="bold"
-            fontStyle="italic"
-            sx={{ textDecoration: "underline" }}
           >
             Quote of the Day
           </Typography>
