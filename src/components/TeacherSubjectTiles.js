@@ -12,7 +12,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Button from "@mui/material/Button"; // Import Button
 import { useTheme } from "@mui/material/styles";
 
-import ViewTopic from "./topic_popups";
+import ViewTopic from "./teacherTopicPopUp";
 
 const SubjectsTable = () => {
   const [rows, setRows] = useState([]);
@@ -61,7 +61,7 @@ const SubjectsTable = () => {
     >
       {rows.map((row) => (
         <Grid item xs={12} sm={6} md={4} key={row.id}>
-          <Card style={{ width: "300px", height: "300px" }}>
+          <Card style={{ width: "300px", height: "300px", borderRadius: 0, boxShadow: 'none' }}>
             <CardActionArea
               onClick={() => handleClickOpen(row.name)}
               style={{ height: "100%" }}

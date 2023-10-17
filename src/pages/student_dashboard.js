@@ -1,14 +1,12 @@
 import React, { useRef } from "react"; // Import useRef
 import Navbar from "../components/navbar.js";
-import SubjectsTable from "../components/subjectTable.js";
+import SubjectTiles from "../components/StudentSubjectTiles.js";
 import StudentCalendar from "../components/studentCalendar.js";
 import QuoteOfTheDay from "../components/quote";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button"; // Import Button
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import SubjectTiles from "../components/subjectTiles.js";
 
 const theme = createTheme({
   typography: {

@@ -1,6 +1,6 @@
 import React, { useRef } from "react"; // Import useRef
 import Navbar from "../components/navbar.js";
-import SubjectsTable from "../components/teacherSubjectTable.js";
+import TeacherSubjectTiles from "../components/TeacherSubjectTiles";
 import TeacherCalendar from "../components/teacherCalendar";
 import QuoteOfTheDay from "../components/quote";
 import Grid from "@mui/material/Grid";
@@ -64,20 +64,28 @@ function teacherdashboard() {
       <Navbar />
       <div className="App">
         <FullScreenWelcome onButtonClick={handleButtonClick} />
-        <div ref={dashboardRef}>
-          {" "}
+        <div ref={dashboardRef} style={{ height: "100vh" }}>
           {/* Set the reference here */}
           <Grid
             container
-            spacing={10}
-            padding={5}
-            style={{ marginTop: "5%", marginBottom: "12%" }}
+            style={{ height: "100%", padding: "0 10%" }}
+            justifyContent="center"
+            alignItems="center"
           >
-            <Grid item xs={7}>
-              <SubjectsTable />
-            </Grid>
-            <Grid item xs={4}>
+            <TeacherSubjectTiles />
+          </Grid>
+        </div>
+        <div style={{ height: "100vh", padding: "10%" }}>
+          <Grid
+            container
+            spacing={10}
+            direction="row"
+            style={{ height: "100%" }}
+          >
+            <Grid item xs={12} md={6}>
               <TeacherCalendar />
+            </Grid>
+            <Grid item xs={12} md={6}>
               <QuoteOfTheDay />
             </Grid>
           </Grid>
