@@ -14,20 +14,23 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   typography: {
     fontFamily: "'Roboto Condensed', sans-serif",
+    background: "#FFF2D8",
   },
 });
 
 const viewVideos = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Navbar />
-        <div className="app">
-          <Subtitle />
-          <Video />
-        </div>
+      <div className={"App"}> {/* this is the background color */}
+        <ThemeProvider theme={theme}>
+          <div>
+            <Navbar />
+            <div className="App">
+              <Subtitle />
+              <Video />
+            </div>
+          </div>
+        </ThemeProvider>
       </div>
-    </ThemeProvider>
   );
 };
 

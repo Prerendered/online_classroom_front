@@ -123,6 +123,12 @@ const UploadArea = () => {
         setErrorDialogOpen(true);
         return;
       }
+
+      if (videoName.trim() === "") {
+        setErrorDialogMessage("Please add a title to the video.");
+        setErrorDialogOpen(true);
+        return;
+      }
     }
 
     try {
@@ -270,7 +276,7 @@ const UploadArea = () => {
               }}
           >
             <div>
-              <Typography gutterBottom variant="h4" component="div" align="left" fontWeight={'bold'} fontSize={50}>
+              <Typography gutterBottom variant="h4" component="div" align="left" fontWeight={'bold'} fontSize={50} fontFamily={"Roboto Condensed, sans-serif"}>
                 Topic name: {name}
               </Typography>
               <TextField

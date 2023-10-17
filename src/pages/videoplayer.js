@@ -66,7 +66,7 @@ const CloudinaryPlayer = () => {
     >
       <Grid
         item
-        xs={6}
+        xs={7}
         sx={{
           display: "flex",
           justifyContent: "center",

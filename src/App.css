@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap");
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #EAD7BB;
+  font-family: Roboto Condensed, sans-serif;
+  overflow-y: auto;
+}
+
 html,
 body {
   margin: 0;
@@ -12,11 +21,4 @@ body {
   overflow: auto;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #eeeeee;
-  font-family: Roboto Condensed, sans-serif;
-  overflow-y: auto;
-}
+

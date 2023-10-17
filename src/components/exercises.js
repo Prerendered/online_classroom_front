@@ -186,16 +186,17 @@ const Exercise = () => {
       spacing={0.5}
       justifyContent="Center"
       paddingTop={"3%"}
-      paddingLeft={6}
+      paddingLeft={2}
     >
       {/* Exercise Box */}
-      <Grid item xs={12} md={12} paddingRight={1}>
-        <Paper elevation={3} style={{ padding: "10%", paddingLeft: "10%" }}>
+      <Grid item xs={12} md={12} >
+        <Paper elevation={3} style={{ padding: "5%", paddingLeft: "5%" }}>
           <Typography variant="h6">{topicName} Questions</Typography>
           {questions.map((question, index) => (
             <div key={index}>
               <Typography
                 variant="body1"
+                fontFamily="Roboto Condensed, sans-serif"
                 style={{ marginTop: "2%" }}
               ></Typography>
               <TextField
@@ -203,6 +204,7 @@ const Exercise = () => {
                 label={`${question}`}
                 variant="outlined"
                 margin="normal"
+                fontFamily="Roboto Condensed, sans-serif"
                 fullWidth
                 onChange={(event) => handleAnswerChange(event, index)}
                 value={givenAnswers[index]}
@@ -213,7 +215,8 @@ const Exercise = () => {
             variant="contained"
             color="primary"
             onClick={handleSubmit}
-            style={{ marginTop: "16px" }}
+            style={{ marginTop: "16px" , fontFamily: "Roboto Condensed, sans-serif" }}
+
           >
             Submit
           </Button>
