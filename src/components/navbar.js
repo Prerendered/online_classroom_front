@@ -21,7 +21,7 @@ import back from "../assets/logout.png";
 
 const pages = ["Home", "Forum", "Log Out"];
 const images = [house, speech, back];
-const routes = ["/teacher-dashboard", "/student-dashboard", "/"];
+// const routes = ["/teacher-dashboard", "/student-dashboard", "/"];
 
 const theme = createTheme({
   typography: {
@@ -34,9 +34,11 @@ function NavBar() {
     window.location.href = url;
   };
 
-  const isStudentDashboard =
-    window.location.pathname.includes("student-dashboard") ||
-    window.location.pathname.includes("view-video");
+  const isStudentDashboard = (
+    window.location.pathname.includes('student-dashboard') || 
+    window.location.pathname.includes('view-video') ||
+    window.location.pathname.includes('forum/student')
+  );
 
   const getRoute = (page) => {
     switch (page) {
