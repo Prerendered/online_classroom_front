@@ -88,7 +88,15 @@ function teacherdashboard() {
           onViewProgressClick={handleViewProgressClick}
         />
         <div ref={dashboardRef} style={{ height: "100vh" }}>
-          {/* Set the reference here */}
+          {/* Title for the TeacherSubjectTiles view */}
+          {/* <Typography
+            variant="h4"
+            component="h2"
+            style={{ padding: "20px 10%", textAlign: "center"}}
+          >
+            Your Subjects
+          </Typography> */}
+
           <Grid
             container
             style={{ height: "100%", padding: "0 10%" }}
@@ -100,6 +108,11 @@ function teacherdashboard() {
         </div>
         {/* ProgressTable Grid item */}
         <div ref={progressRef} style={{ width: "100%", padding: "0 10%" }}>
+          {/* Title for the ProgressTable view */}
+          {/* <Typography variant="h4" component="h2" style={{ padding: "20px 0", textAlign: "center" }}>
+            Progress Overview
+          </Typography> */}
+
           <Grid
             container
             spacing={10}
@@ -113,6 +126,11 @@ function teacherdashboard() {
         </div>
         {/* Existing Grid container */}
         <div style={{ height: "100vh", padding: "10%" }}>
+          {/* Title for the Calendar view */}
+          {/* <Typography variant="h4" component="h2" style={{ padding: "10px 0", textAlign: "center" }}>
+            Calendar and Quotes
+          </Typography> */}
+
           <Grid
             container
             spacing={10}

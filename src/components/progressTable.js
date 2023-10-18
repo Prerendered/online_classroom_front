@@ -82,7 +82,7 @@ const SubjectsTable = () => {
                 fontWeight: "bold",
               }}
             >
-              Courses
+              Course Progress
             </TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
