@@ -3,6 +3,7 @@ import Navbar from "../components/navbar.js";
 import TeacherSubjectTiles from "../components/TeacherSubjectTiles";
 import TeacherCalendar from "../components/teacherCalendar";
 import QuoteOfTheDay from "../components/quote";
+import ProgressTable from "../components/progressTable";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -75,6 +76,20 @@ function teacherdashboard() {
             <TeacherSubjectTiles />
           </Grid>
         </div>
+        {/* ProgressTable Grid item */}
+        <div style={{ width: "100%", padding: "0 10%" }}>
+          <Grid
+            container
+            spacing={10}
+            direction="row"
+            style={{ width: "100%" }}
+          >
+            <Grid item xs={12}>
+              <ProgressTable />
+            </Grid>
+          </Grid>
+        </div>
+        {/* Existing Grid container */}
         <div style={{ height: "100vh", padding: "10%" }}>
           <Grid
             container
