@@ -97,7 +97,20 @@ export default function SignInSide() {
           }}
         />
 
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Box
             sx={{
               my: 8,
@@ -112,7 +125,7 @@ export default function SignInSide() {
             </Avatar>
 
             <Typography component="h1" variant="h5">
-              Sign in
+              Log in to your account
             </Typography>
 
             <Box
@@ -143,39 +156,33 @@ export default function SignInSide() {
                 autoComplete="current-password"
               />
 
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color='primary'/>}
-                label="Remember me"
-              /> */}
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
+              <Box
                 sx={{
+                  display: "flex",
+                  justifyContent: "center",
                   mt: 3,
                   mb: 2,
-                  bgcolor: "black",
-                  color: "white",
-                  "&:hover": { bgcolor: "#00ADB5", color: "black" },
                 }}
-                disabled={loading} // Disable the button when loading
               >
-                {loading ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  "Sign In"
-                )}{" "}
-                {/* Conditionally render loading indicator */}
-              </Button>
-
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-              </Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    width: "25%", // Adjust the width as needed
+                    bgcolor: "black",
+                    color: "white",
+                    fontWeight: "bold",
+                    "&:hover": { bgcolor: "#00ADB5", color: "black" },
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Sign In"
+                  )}
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>
