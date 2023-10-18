@@ -15,7 +15,7 @@ const theme = createTheme({
   },
 });
 
-function FullScreenWelcome({ onButtonClick }) {
+function FullScreenWelcome({ onButtonClick, onViewProgressClick }) {
   return (
     <div
       style={{
@@ -23,11 +23,11 @@ function FullScreenWelcome({ onButtonClick }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "column",
+        flexDirection: "column", // Maintain the column layout for the parent div
         backgroundImage:
-          'url("https://images.unsplash.com/photo-1533709475520-a0745bba78bf?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2070")', // Set the background image here
-        backgroundSize: "cover", // Ensure the image covers the entire div
-        backgroundPosition: "center", // Center the background image
+          'url("https://images.unsplash.com/photo-1533709475520-a0745bba78bf?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2070")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <Typography variant="h3" component="h1" sx={{ color: "#FFFFFF" }}>
@@ -36,35 +36,57 @@ function FullScreenWelcome({ onButtonClick }) {
       <Typography variant="h1" component="h1" sx={{ color: "#FFFFFF" }}>
         Online Classroom
       </Typography>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={onButtonClick}
-        style={{
-          marginTop: "20px",
-          borderRadius: "0",
-          color: "#FFFFFF",
-          borderColor: "#FFFFFF",
-        }}
-      >
-        Go to your courses
-      </Button>
+      <div style={{ flexDirection: "row", display: "flex", marginTop: "20px" }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onButtonClick}
+          style={{
+            marginRight: "10px", // Adjust marginRight to create a gap between buttons
+            borderRadius: "0",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          }}
+        >
+          Go to your courses
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onViewProgressClick}
+          style={{
+            borderRadius: "0",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          }}
+        >
+          View your progress
+        </Button>
+      </div>
     </div>
   );
 }
 
 function teacherdashboard() {
   const dashboardRef = useRef(null); // Create a reference
+  const progressRef = useRef(null);
 
   const handleButtonClick = () => {
     dashboardRef.current.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly to the reference
+  };
+
+  const handleViewProgressClick = () => {
+    progressRef.current.scrollIntoView({ behavior: "smooth" }); // Scroll to ProgressTable section
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
       <div className="App">
-        <FullScreenWelcome onButtonClick={handleButtonClick} />
+        <FullScreenWelcome
+          onButtonClick={handleButtonClick}
+          onViewProgressClick={handleViewProgressClick}
+        />
         <div ref={dashboardRef} style={{ height: "100vh" }}>
           {/* Set the reference here */}
           <Grid
@@ -77,7 +99,7 @@ function teacherdashboard() {
           </Grid>
         </div>
         {/* ProgressTable Grid item */}
-        <div style={{ width: "100%", padding: "0 10%" }}>
+        <div ref={progressRef} style={{ width: "100%", padding: "0 10%" }}>
           <Grid
             container
             spacing={10}

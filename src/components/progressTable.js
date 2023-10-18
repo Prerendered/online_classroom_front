@@ -68,8 +68,9 @@ const SubjectsTable = () => {
         float: "left",
         padding: "5%",
         margin: "0.2%",
-        borderRadius: 10,
-        height: "93%",
+        borderRadius: 0,
+        height: "100%",
+        overflow: "None",
       }}
     >
       <Table>
