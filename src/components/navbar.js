@@ -21,7 +21,8 @@ import back from "../assets/logout.png";
 
 const pages = ["Home", "Forum", "Log Out"];
 const images = [house, speech, back];
-const routes = ["/", "/teacher-dashboard", "/student-dashboard", ""];
+const routes = ["/teacher-dashboard", "/student-dashboard", "/"];
+
 const theme = createTheme({
   typography: {
     fontFamily: "'Roboto Condensed', sans-serif",
@@ -31,6 +32,23 @@ const theme = createTheme({
 function NavBar() {
   const navigateToPage = (url) => {
     window.location.href = url;
+  };
+
+  const isStudentDashboard =
+    window.location.pathname.includes("student-dashboard") ||
+    window.location.pathname.includes("view-video");
+
+  const getRoute = (page) => {
+    switch (page) {
+      case "Home":
+        return isStudentDashboard ? "/student-dashboard" : "/teacher-dashboard";
+      case "Forum":
+        return isStudentDashboard ? "/forum/student" : "/forum/teacher";
+      case "Log Out":
+        return "/";
+      default:
+        return "/";
+    }
   };
 
   const [scrolling, setScrolling] = useState(false);
@@ -149,7 +167,7 @@ function NavBar() {
               {pages.map((page, index) => (
                 <Button
                   key={page}
-                  onClick={() => navigateToPage(routes[index])}
+                  onClick={() => navigateToPage(getRoute(page))}
                   sx={{
                     my: 2,
                     color: "white",
