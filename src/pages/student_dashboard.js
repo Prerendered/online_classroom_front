@@ -2,6 +2,7 @@ import React, { useRef } from "react"; // Import useRef
 import Navbar from "../components/navbar.js";
 import SubjectTiles from "../components/StudentSubjectTiles.js";
 import StudentCalendar from "../components/studentCalendar.js";
+import ProgressTable from "../components/progressTable";
 import QuoteOfTheDay from "../components/quote";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -74,7 +75,21 @@ function studentdashboard() {
           >
             <SubjectTiles />
           </Grid>
+          </div>
+        {/* ProgressTable Grid item */}
+        <div style={{ width: "100%", padding: "0 10%" }}>
+          <Grid
+            container
+            spacing={10}
+            direction="row"
+            style={{ width: "100%" }}
+          >
+            <Grid item xs={12}>
+              <ProgressTable />
+            </Grid>
+          </Grid>
         </div>
+        {/* Existing Grid container */}
         <div style={{ height: "100vh", padding: "10%" }}>
           <Grid
             container
