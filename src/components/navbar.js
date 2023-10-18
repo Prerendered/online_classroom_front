@@ -21,7 +21,6 @@ import back from "../assets/logout.png";
 
 const pages = ["Home", "Forum", "Log Out"];
 const images = [house, speech, back];
-// const routes = ["/teacher-dashboard", "/student-dashboard", "/"];
 
 const theme = createTheme({
   typography: {

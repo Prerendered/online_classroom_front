@@ -8,7 +8,9 @@ const UploadVideos = () => {
   return (
     <div>
       <Navbar />
-      <UploadArea />
+      <div style={ { paddingTop: "80px" } } >
+        <UploadArea />
+      </div>
     </div>
   );
 };

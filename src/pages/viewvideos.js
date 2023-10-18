@@ -24,7 +24,7 @@ const viewVideos = () => {
         <ThemeProvider theme={theme}>
           <div>
             <Navbar />
-            <div className="App">
+            <div className="App" style={ { paddingTop: "80px" } }>
               <Subtitle />
               <Video />
             </div>
