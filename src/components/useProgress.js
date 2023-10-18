@@ -57,7 +57,7 @@ const ViewTopic = ({ subjectName }) => {
     <div>
       {/* Progress Label */}
       <Typography variant="body2" color="textSecondary" gutterBottom>
-        {`Progress: ${Math.round(progress)}%`}
+        {`Completion: ${Math.round(progress)}%`}
       </Typography>
       {/* Progress Bar */}
       <LinearProgress
