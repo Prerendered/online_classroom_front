@@ -15,7 +15,7 @@ const theme = createTheme({
   },
 });
 
-function FullScreenWelcome({ onButtonClick }) {
+function FullScreenWelcome({ onButtonClick, onViewProgressClick}) {
   return (
     <div
       style={{
@@ -36,35 +36,57 @@ function FullScreenWelcome({ onButtonClick }) {
       <Typography variant="h1" component="h1" sx={{ color: "#FFFFFF" }}>
         Online Classroom
       </Typography>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={onButtonClick}
-        style={{
-          marginTop: "20px",
-          borderRadius: "0",
-          color: "#FFFFFF",
-          borderColor: "#FFFFFF",
-        }}
-      >
-        Go to your courses
-      </Button>
+      <div style={{ flexDirection: "row", display: "flex", marginTop: "20px" }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onButtonClick}
+          style={{
+            marginRight: "10px", // Adjust marginRight to create a gap between buttons
+            borderRadius: "0",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          }}
+        >
+          Go to your courses
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onViewProgressClick}
+          style={{
+            borderRadius: "0",
+            color: "#FFFFFF",
+            borderColor: "#FFFFFF",
+          }}
+        >
+          View your progress
+        </Button>
+      </div>
     </div>
   );
 }
 
 function studentdashboard() {
   const dashboardRef = useRef(null); // Create a reference
+  const progressRef = useRef(null);
 
   const handleButtonClick = () => {
     dashboardRef.current.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly to the reference
+  };
+
+  const handleViewProgressClick = () => {
+    progressRef.current.scrollIntoView({ behavior: "smooth" }); // Scroll to ProgressTable section
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
       <div className="App">
-        <FullScreenWelcome onButtonClick={handleButtonClick} />
+        <FullScreenWelcome
+          onButtonClick={handleButtonClick}
+          onViewProgressClick={handleViewProgressClick}
+        />
         <div ref={dashboardRef} style={{ height: "100vh" }}>
           {/* Set the reference here */}
           <Grid
@@ -75,9 +97,9 @@ function studentdashboard() {
           >
             <SubjectTiles />
           </Grid>
-          </div>
+        </div>
         {/* ProgressTable Grid item */}
-        <div style={{ width: "100%", padding: "0 10%" }}>
+        <div ref={progressRef} style={{ width: "100%", padding: "0 10%" }}>
           <Grid
             container
             spacing={10}
