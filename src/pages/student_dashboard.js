@@ -15,7 +15,7 @@ const theme = createTheme({
   },
 });
 
-function FullScreenWelcome({ onButtonClick, onViewProgressClick}) {
+function FullScreenWelcome({ onButtonClick, onViewProgressClick }) {
   return (
     <div
       style={{

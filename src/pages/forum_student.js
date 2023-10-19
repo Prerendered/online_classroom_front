@@ -13,9 +13,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  TablePagination,
   DialogActions,
-  TableSortLabel,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -102,7 +100,9 @@ const StudentPage = () => {
   // Function to fetch forum data from the backend
   const fetchForumData = async () => {
     try {
-      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/getAll"); // Replace with your actual API endpoint
+      const response = await fetch(
+        "https://online-classroom-backend.onrender.com/api/forum/getAll"
+      ); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();
@@ -153,13 +153,16 @@ const StudentPage = () => {
   const handleSubmitQuestion = async () => {
     try {
       // Send a POST request to the backend API
-      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(questionData),
-      });
+      const response = await fetch(
+        "https://online-classroom-backend.onrender.com/api/forum/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(questionData),
+        }
+      );
 
       if (response.ok) {
         // If the request was successful, update the 'questions' state with the new question
@@ -185,7 +188,7 @@ const StudentPage = () => {
   return (
     <Layout>
       <Container>
-        <div style={ { paddingTop: "80px" } }>
+        <div style={{ paddingTop: "80px" }}>
           <ForumIcon sx={{ fontSize: 48, color: "primary" }} />
           <h2>Online Forum</h2>
         </div>

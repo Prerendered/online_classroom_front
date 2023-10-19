@@ -4,7 +4,6 @@
 import React from "react";
 import "../App.css";
 import "../components/navbar.js";
-import "../components/navbar.css";
 import "./subject-title.css";
 import Navbar from "../components/navbar.js";
 import Video from "./videoplayer.js";
@@ -20,17 +19,19 @@ const theme = createTheme({
 
 const viewVideos = () => {
   return (
-      <div className={"App"}> {/* this is the background color */}
-        <ThemeProvider theme={theme}>
-          <div>
-            <Navbar />
-            <div className="App" style={ { paddingTop: "80px" } }>
-              <Subtitle />
-              <Video />
-            </div>
+    <div className={"App"}>
+      {" "}
+      {/* this is the background color */}
+      <ThemeProvider theme={theme}>
+        <div>
+          <Navbar />
+          <div className="App" style={{ paddingTop: "80px" }}>
+            <Subtitle />
+            <Video />
           </div>
-        </ThemeProvider>
-      </div>
+        </div>
+      </ThemeProvider>
+    </div>
   );
 };
 

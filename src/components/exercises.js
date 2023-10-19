@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../App.css";
 import "../components/navbar.js";
-import "../components/navbar.css";
 import {
   Grid,
   Paper,

@@ -37,7 +37,9 @@ const TeacherPage = () => {
   // Function to fetch questions from the backend
   const fetchQuestions = async () => {
     try {
-      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/getAll"); // Replace with your actual API endpoint
+      const response = await fetch(
+        "https://online-classroom-backend.onrender.com/api/forum/getAll"
+      ); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();
@@ -144,7 +146,7 @@ const TeacherPage = () => {
 
   return (
     <Layout>
-      <Container style={{ paddingTop: '100px' }}>
+      <Container style={{ paddingTop: "100px" }}>
         {/* Display questions in a scrollable table */}
         <TableContainer component={Paper}>
           <Table>
