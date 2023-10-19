@@ -28,7 +28,7 @@ const SubjectsTable = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/v2/subjects/getAll"
+          "https://online-classroom-backend.onrender.com/api/v2/subjects/getAll"
         );
         const result = await response.json();
 
