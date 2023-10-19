@@ -83,7 +83,7 @@ const StudentPage = () => {
         fetchForumData();
       } else {
         const response = await fetch(
-          `http://localhost:8080/api/forum/search/category/${selectedCategory}`
+          `https://online-classroom-backend.onrender.com/api/forum/search/category/${selectedCategory}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -102,7 +102,7 @@ const StudentPage = () => {
   // Function to fetch forum data from the backend
   const fetchForumData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/forum/getAll"); // Replace with your actual API endpoint
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/getAll"); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();
@@ -123,7 +123,7 @@ const StudentPage = () => {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/forum/search/categories"
+        "https://online-classroom-backend.onrender.com/api/forum/search/categories"
       );
       if (response.ok) {
         const data = await response.json();
@@ -153,7 +153,7 @@ const StudentPage = () => {
   const handleSubmitQuestion = async () => {
     try {
       // Send a POST request to the backend API
-      const response = await fetch("http://localhost:8080/api/forum/save", {
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

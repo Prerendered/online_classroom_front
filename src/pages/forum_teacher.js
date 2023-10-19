@@ -37,7 +37,7 @@ const TeacherPage = () => {
   // Function to fetch questions from the backend
   const fetchQuestions = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/forum/getAll"); // Replace with your actual API endpoint
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/forum/getAll"); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();
@@ -63,7 +63,7 @@ const TeacherPage = () => {
     try {
       // Send a PUT request to the backend API to update the answer
       const response = await fetch(
-        `http://localhost:8080/api/forum/edit/answer/${answerData.questionId}/${answerData.answer}`,
+        `https://online-classroom-backend.onrender.com/api/forum/edit/answer/${answerData.questionId}/${answerData.answer}`,
         {
           method: "PUT",
           headers: {
@@ -94,7 +94,7 @@ const TeacherPage = () => {
     try {
       // Send a DELETE request to the backend API to delete the question
       const response = await fetch(
-        `http://localhost:8080/api/forum/delete/${questionId}`,
+        `https://online-classroom-backend.onrender.com/api/forum/delete/${questionId}`,
         {
           method: "DELETE",
         }

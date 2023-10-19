@@ -7,7 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import { useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import InfoIcon from '@mui/icons-material/Info';
-import DialogContent from "@mui/material/DialogContent";
 
 import "../App.css";
 
@@ -134,7 +133,7 @@ const UploadArea = () => {
     try {
       // Send a POST request for each exercise object in the array
       for (const exercise of exerciseData) {
-        const response = await axios.post("http://localhost:8080/api/exercises/save", exercise);
+        const response = await axios.post("https://online-classroom-backend.onrender.com/api/exercises/save", exercise);
 
         if (response.status === 200) {
           // Exercise saved successfully

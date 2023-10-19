@@ -22,7 +22,7 @@ export default function StudentCalendar() {
 
   const fetchCalendarDays = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/calendar/getAll"); // Replace with your actual API endpoint
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/calendar/getAll"); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();

@@ -36,7 +36,7 @@ export default function TeacherCalendar() {
 
   const fetchCalendarDays = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/calendar/getAll"); // Replace with your actual API endpoint
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/calendar/getAll"); // Replace with your actual API endpoint
 
       if (response.ok) {
         const data = await response.json();
@@ -111,7 +111,7 @@ export default function TeacherCalendar() {
     console.log(JSON.stringify(messageEntry));
     try {
       // Send a POST request to the backend API
-      const response = await fetch("http://localhost:8080/api/calendar/save", {
+      const response = await fetch("https://online-classroom-backend.onrender.com/api/calendar/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ export default function TeacherCalendar() {
   const handleMessageDelete = async (dateId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/calendar/delete/${dateId}`,
+        `https://online-classroom-backend.onrender.com/api/calendar/delete/${dateId}`,
         {
           method: "DELETE",
         }

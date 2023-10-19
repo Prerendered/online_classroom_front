@@ -67,7 +67,7 @@ function FullScreenWelcome({ onButtonClick, onViewProgressClick}) {
   );
 }
 
-function studentdashboard() {
+function StudentDashboard() {
   const dashboardRef = useRef(null); // Create a reference
   const progressRef = useRef(null);
 
@@ -132,4 +132,4 @@ function studentdashboard() {
   );
 }
 
-export default studentdashboard;
+export default StudentDashboard;

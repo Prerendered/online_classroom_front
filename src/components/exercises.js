@@ -37,7 +37,7 @@ const Exercise = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/exercises/getAll"
+        "https://online-classroom-backend.onrender.com/api/exercises/getAll"
       );
       const result = await response.json();
 
@@ -110,7 +110,7 @@ const Exercise = () => {
         console.log('BANANANA',data);
 
         axios
-          .put(`http://localhost:8080/api/v2/topics/edit/${id}`, data)
+          .put(`https://online-classroom-backend.onrender.com/api/v2/topics/edit/${id}`, data)
           .then((response) => {
             console.log(response);
           })

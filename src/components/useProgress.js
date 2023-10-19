@@ -21,7 +21,7 @@ const ViewTopic = ({ subjectName }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v2/topics/getAll"
+          "https://online-classroom-backend.onrender.com/api/v2/topics/getAll"
         );
         const transformedRows = response.data.map((entry) => ({
           id: entry._id,
