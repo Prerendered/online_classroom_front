@@ -185,7 +185,7 @@ const StudentPage = () => {
   return (
     <Layout>
       <Container>
-        <div style={ { paddingTop: "80px" } }>
+        <div style={{ paddingTop: "80px" }}>
           <ForumIcon sx={{ fontSize: 48, color: "primary" }} />
           <h2>Online Forum</h2>
         </div>
