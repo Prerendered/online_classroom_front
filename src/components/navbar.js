@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Mui components
 import AppBar from "@mui/material/AppBar";
@@ -30,10 +30,10 @@ const theme = createTheme({
 });
 
 function NavBar() {
-  const history = useHistory();  // <-- Use history
+  const navigate = useNavigate(); 
 
   const navigateToPage = (url) => {
-    history.push(url);
+    navigate(url);
   };
 
   const isStudentDashboard = (
