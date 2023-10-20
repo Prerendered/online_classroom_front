@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 // Mui components
 import AppBar from "@mui/material/AppBar";
@@ -29,8 +30,10 @@ const theme = createTheme({
 });
 
 function NavBar() {
+  const history = useHistory();  // <-- Use history
+
   const navigateToPage = (url) => {
-    window.location.href = url;
+    history.push(url);
   };
 
   const isStudentDashboard = (
